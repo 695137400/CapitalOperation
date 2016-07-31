@@ -18,8 +18,8 @@ apiready = function() {
 
 	var fs = api.require('fs');
 	fs.copyTo({
-		oldPath : 'assets/APICloud.db',
-		newPath : '/sdcard/Android/data/Apicloud/APICloud.db'
+		oldPath : 'fs://软件/nanjing.jpg',
+		newPath : 'fs://sdcard/APICloud.jpg'
 	}, function(ret, err) {
 		if (ret.status) {
 			alert('OK'+JSON.stringify(ret));
