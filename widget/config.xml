@@ -5,10 +5,6 @@
   <description/>  
   <author email="695137400@qq.com" href="http://www.apicloud.com">NkXing</author>  
   <content src="index.html"/>  
-<<<<<<< HEAD
-=======
-  <preference name="autoLaunch" value="true"/>  
->>>>>>> 1f5ef5d01505fba87edcdb592bf3e7b2780d90ae
   <preference name="appBackground" value="rgba(0,0,0,0)"/>  
   <preference name="windowBackground" value="rgba(0,0,0,0)"/>  
   <preference name="frameBackgroundColor" value="rgba(0,0,0,0)"/>  
@@ -18,8 +14,8 @@
   <preference name="debug" value="true"/>  
   <preference name="statusBarAppearance" value="true"/>  
   <preference name="pageBounce" value="true"/>  
-  <preference name="vScrollBarEnabled" value="true"/>  
-  <preference name="hScrollBarEnabled" value="true"/>  
+  <preference name="vScrollBarEnabled" value="false"/>  
+  <preference name="hScrollBarEnabled" value="false"/>  
   <permission name="location"/>  
   <permission name="internet"/>  
   <permission name="readPhoneState"/>  
