@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/sm.css">
+    <script src="../script/jquery.js"></script>
+    <script src="../script/zepto.js"></script>
+</head>
+<body>
+<div class="aui-searchbar" style="color: #000;">
+    <div onclick="goBack()">
+        <span class="aui-icon-left aui-iconfont"></span>
+    </div>
+    <div class="aui-title" style="width: 90%;text-align: center;">新建</div>
+</div>
+<div>
+    <ul class="aui-list aui-list-in">
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
+                <div class="aui-margin-l-5">
+                    <img src="../image/img_addpic.png" style="margin: 2px;">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-calendar"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 30%;">
+                日期
+            </div>
+            <div class="aui-list-item-inner page aui-list-item-input" id="page-calendar"
+                 style="background-color:rgba(255, 255, 255, 0);min-height: 55px;">
+                <div class="aui-list-item-input content">
+                    <input type="text" data-toggle='date' id="date" onchange="getw(this)"
+                           style="width: 150px;display: initial;height: 50px;"/>
+                    <label id="xq">星期三</label>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-calendar"></i>
+            </div>
+            <div class="aui-list-item-inner">
+                时间
+            </div>
+            <div class="aui-list-item-inner" style="margin-left: -40%;">
+                <div class="content">
+                    <input type="text" id="sj" onclick="szShow(document.body,szsj)"  readonly/>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/sm.js"></script>
+<script src="../script/time.js"></script>
+<script>
+    Date.prototype.Format = function (formatStr) {
+        var str = formatStr;
+        str = str.replace(/yyyy|YYYY/, this.getFullYear());
+        str = str.replace(/MM/, (this.getMonth() + 1) > 9 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1));
+        str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+        str = str.replace(/hh|HH/, this.getHours() > 9 ? this.getHours().toString() : '0' + this.getHours());
+        str = str.replace(/mm/, (this.getMinutes() + 1) > 9 && (this.getMinutes() + 1) <= 59 ? (this.getMinutes() + 1).toString() : ((this.getMinutes() + 1) <= 59 ? ('0' + (this.getMinutes() + 1)) : (this.getMinutes())));
+        str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
+        return str;
+    };
+    function szsj(s,f) {
+        $$('#sj').val(s+':'+f);
+    }
+    window.$$ = jQuery;
+    var date = new Date();
+    $$('#sj').val(date.Format('HH:mm'));
+    document.getElementById('date').value = new Date().Format("yyyy-MM-dd");
+    function getw(obj) {
+        var w = "日一二三四五六".charAt(new Date(obj.value).getDay());
+        document.getElementById("xq").innerHTML = "星期" + w;
+    }
+    apiready = function () {
+        api.addEventListener({
+            name: 'keyback'
+        }, function (ret, err) {
+            return false;
+        });
+    }
+    function goBack() {
+        api.closeWin({
+            name: 'new'
+        });
+    }
+    Zepto.init();
+</script>
+</html>
