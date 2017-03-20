@@ -24,7 +24,7 @@
 <header class="aui-searchbar">
 </header>
 <ul class="aui-list aui-list-in" id="tab">
-    <li class="aui-list-item aui-active">
+    <li class="aui-list-item" id="list-home">
         <div class="aui-list-item-label-icon">
             <i class="aui-iconfont aui-icon-home"></i>
         </div>
@@ -32,7 +32,15 @@
             首页
         </div>
     </li>
-    <li class="aui-list-item">
+    <li class="aui-list-item" id="list-cert">
+        <div class="aui-list-item-label-icon">
+            <i class="aui-iconfont aui-icon-cert"></i>
+        </div>
+        <div class="aui-list-item-inner">
+            联系人
+        </div>
+    </li>
+    <li class="aui-list-item" id="list-star">
         <div class="aui-list-item-label-icon">
             <i class="aui-iconfont aui-icon-star"></i>
         </div>
@@ -40,15 +48,15 @@
             收藏
         </div>
     </li>
-    <li class="aui-list-item">
+    <li class="aui-list-item" id="list-calendar">
         <div class="aui-list-item-label-icon">
             <i class="aui-iconfont aui-icon-calendar"></i>
         </div>
         <div class="aui-list-item-inner">
-            安排
+            预约
         </div>
     </li>
-    <li class="aui-list-item">
+    <li class="aui-list-item" id="list-date">
         <div class="aui-list-item-label-icon">
             <i class="aui-iconfont aui-icon-date"></i>
         </div>
@@ -56,7 +64,7 @@
             提醒
         </div>
     </li>
-    <li class="aui-list-item">
+    <li class="aui-list-item" id="list-flag">
         <div class="aui-list-item-label-icon">
             <i class="aui-iconfont aui-icon-flag"></i>
         </div>
@@ -64,7 +72,7 @@
             历史
         </div>
     </li>
-    <li class="aui-list-item">
+    <li class="aui-list-item" id="list-question">
         <div class="aui-list-item-label-icon">
             <i class="aui-iconfont aui-icon-question"></i>
         </div>
@@ -75,7 +83,7 @@
 </ul>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script src="../script/jquery.js"></script>
 <script src="../script/fixed.js"></script>
 <script>
     apiready = function () {

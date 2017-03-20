@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>提醒</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" href="../css/aui.css">
+    <script src="../script/jquery.js"></script>
+</head>
+<body class="qiushi-frame">
+<section class="aui-grid" style="position: fixed;z-index: 9;">
+    <div class="aui-row" style="width: 100%;height: 25px;line-height: 1.8em;">
+        <div class="aui-badge" style="position: static;background-color: rgba(8, 148, 236, 0.99);margin-left: 15px;">A</div>
+    </div>
+</section>
+<div style="overflow-x: scroll;">
+    <ul class="aui-list aui-list-in" style="margin-top: 25px;" id="contacts">
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+    var map = function () {
+        var length = 0;
+        this.size = function () {
+            return length;
+        };
+        var keySet = [];
+        this.keySet = function () {
+            return keySet;
+        };
+        this.get = function (key) {
+            return this[key];
+        };
+        this.set = function (key, val) {
+            if (!this[key]) {
+                this[key] = val;
+                length += 1;
+                keySet.push(key);
+            }
+        };
+        this.remove = function (key) {
+            var index = keySet.indexOf(key);
+            if (index >= 0) {
+                keySet.splice(index, 1);
+                delete this[key];
+                length -= 1;
+            }
+        };
+        this.clear = function () {
+            for (var i = length; i > 0; i--) {
+                this.remove(keySet[0]);
+            }
+        }
+    };
+    apiready = function () {
+        api.addEventListener({
+            name: 'keyback'
+        }, function (ret, err) {
+            return false;
+        });
+        /*   var contacts = api.require('contacts');
+         contacts.select(function(ret, err) {
+         if (ret) {
+         prompt(0,JSON.stringify(ret));
+         } else {
+         prompt(0,JSON.stringify(err));
+         }
+         });*/
+        var contacts = api.require('contacts');
+        /*   contacts.queryByKeyword({
+         keyword: ' '
+         }, function(ret, err) {
+         if (ret) {
+         prompt(0,JSON.stringify(ret));
+         } else {
+         prompt(0,JSON.stringify(err));
+         }
+         });*/
+        contacts.queryByPage({
+            //count: 20,
+            pageIndex: 0
+        }, function (ret, err) {
+            if (ret) {
+                if (ret.contacts.length > 0) {
+                    for (var i = 0; i < ret.contacts.length; i++) {
+                        var contact = ret.contacts[i];
+                        var li = '<li class="aui-list-item" style="min-height: 30px;line-height: 30px;" id="{{id}}">' +
+                                '    <div style="width: 100%;">' +
+                                '        <i class="aui-iconfont aui-icon-my" style="float: left;font-size: 20px;"></i>' +
+                                '        <div style="width: 70px;float: left;margin-left: 5px;border-right: solid 1px rgba(169, 164, 164, 0.65);height: 100%;">{{name}}</div>' +
+                                '        <div style="margin-left:-1px;width: 110px;float: left;border-left: solid 1px rgba(169, 164, 164, 0.65);height: 100%;">{{phone}}</div>' +
+                                '        <div>{{address}}</div>' +
+                                '    </div>' +
+                                '</li>';
+                        li = li.replace('{{id}}', contact.id);
+                        var name = '';
+                        if (contact.firstName && contact.fullName || contact.firstName || contact.fullName) {
+                            if (contact.firstName != contact.fullName) {
+                                name = contact.firstName + contact.fullName;
+                            } else {
+                                name = contact.fullName;
+                            }
+                        }
+                        li = li.replace('{{name}}', name);
+                        if (contact.address && contact.address.City) {
+                            li = li.replace('{{address}}', contact.address.City);
+                        } else {
+                            li = li.replace('{{address}}', '');
+                        }
+                        if (contact.phones) {
+                            var tel = contact.phones;
+                            var tempTel = new map();
+                            for (var j = 0; j < tel.length; j++) {
+                                var t = tel[j];
+                                $.each(t, function (k, v) {
+                                    tempTel.set(v, v);
+                                })
+                            }
+                            var f = '';
+                            for (var p = 0; p < tempTel.keySet().length; p++) {
+                                if (!f) {
+                                    f = tempTel.get(tempTel.keySet()[p]);
+                                } else if (f) {
+                                    f += '<br/>' + tempTel.get(tempTel.keySet()[p]);
+                                }
+                            }
+                            li = li.replace('{{phone}}', f);
+                        }
+                        $('#contacts').append(li);
+                    }
+                }
+            } else {
+                prompt(0, JSON.stringify(err));
+            }
+        });
+    }
+</script>
+</html>

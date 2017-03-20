@@ -1,12 +1,18 @@
+/**
+ * 返回
+ */
 function sliding() {
     api.openSlidPane({
         type: 'left'
     });
 }
+/**
+ * 新建
+ */
 function newMean() {
     api.openWin({
         name: 'new',
-        bgColor:"#ffffff",
+        bgColor: "#ffffff",
         url: 'new.html',
         pageParam: {
             name: 'test'
@@ -16,123 +22,167 @@ function newMean() {
 var api = {};
 apiready = function () {
     api = api;
+    window.filesUtil = api.require('fileUtil');
+    filesUtil.openDebug(function (e) {
+        alert(e);
+    })
+    /*window.filesUtil = api.require('fileUtil');
+     filesUtil.copyFileToData({
+     oldDirName:"contact.db",
+     newDirName:"contact.db"
+     },function (e) {
+     console.log(e);
+     });
+     filesUtil.copyDataToFile({
+     oldDirName:"contact.db",
+     newDirName:"contact.db"
+     },function (e) {
+     console.log(e);
+     });*/
+    /**
+     * 安卓返回按钮监控
+     */
     api.addEventListener({
         name: 'keyback'
     }, function (ret, err) {
-        return false;
+        api.closeWidget();
     });
-    api.openFrameGroup({
-        name: 'home',
-        scrollEnabled: false,
-        rect: {
-            x: 'auto',
-            y: '45',
-            w: 'auto',
-            h: screen.height - 100
-        },
-        frames: [
-            {
-                name: 'zhu_ye',
-                url: 'zhu_ye.html'
-            }, {
-                name: 'shou_cang',
-                url: 'shou_cang.html'
-            }, {
-                name: 'ge_ren_zhong_xin',
-                url: 'ge_ren_zhong_xin.html'
-            }
-        ]
-    }, function (ret, err) {
-        console.log(JSON.stringify(ret));
-        console.log(JSON.stringify(err));
-    });
+    /**
+     * 三个主页展示列表
+     */
+    menus.init();
+    $('#tab-home').click(function () {
+        menus.home();
+    })
+    $('#tab-star').click(function () {
+        menus.star();
+    })
+    $('#tab-my').click(function () {
+        menus.my();
+    })
 };
-function setHome(index) {
-    api.closeFrameGroup({
-        name:"menu"
-    });
-    api.openFrameGroup({
-        name: 'home',
-        scrollEnabled: false,
-        rect: {
-            x: 'auto',
-            y: '45',
-            w: 'auto',
-            h: screen.height - 100
-        },
-        frames: [
-            {
-                name: 'zhu_ye',
-                url: 'zhu_ye.html'
-            }, {
-                name: 'shou_cang',
-                url: 'shou_cang.html'
-            }, {
-                name: 'ge_ren_zhong_xin',
-                url: 'ge_ren_zhong_xin.html'
-            }
-        ]
-    }, function (ret, err) {
-        console.log(JSON.stringify(ret));
-        console.log(JSON.stringify(err));
-    });
-    api.setFrameGroupIndex({
-        name: 'home',
-        index: index
-    }, function (ret, err) {
-        console.log(JSON.stringify(ret));
-        console.log(JSON.stringify(err));
-    });
+var menus = {
+    init: function () {
+        api.openFrameGroup({
+            name: 'menus',
+            scrollEnabled: false,
+            rect: {
+                x: 'auto',
+                y: '45',
+                w: 'auto',
+                h: 'auto'
+            },
+            frames: [
+                {
+                    name: 'home',//0
+                    url: 'zhu_ye.html'
+                },
+                {
+                    name: 'star',//1
+                    url: 'shou_cang.html'
+                },
+                {
+                    name: 'my',//2
+                    url: 'ge_ren_zhong_xin.html'
+                },
+                {
+                    name: 'calendar',//3
+                    url: 'yu_yue.html'
+                },
+                {
+                    name: 'date',//4
+                    url: 'ti_xing.html'
+                },
+                {
+                    name: 'flag',//5
+                    url: 'li_shi.html'
+                },
+                {
+                    name: 'question',//6
+                    url: 'bang_zhu.html'
+                },
+                {
+                    name: 'cert',//7
+                    url: 'cert.html'
+                }
+            ]
+        });
+    },
+    close: function () {
+        api.closeFrameGroup({
+            name: 'menus'
+        });
+        this.init();
+    },
+    home: function () {
+        this.close();
+        var tab_home = $('#tab-home');
+        $('#tab').children().removeClass('aui-active');
+        $(tab_home).addClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 0
+        });
+    },
+    star: function () {
+        this.close();
+        var tab_home = $('#tab-star');
+        $('#tab').children().removeClass('aui-active');
+        $(tab_home).addClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 1
+        });
+    },
+    my: function () {
+        this.close();
+        var tab_home = $('#tab-my');
+        $('#tab').children().removeClass('aui-active');
+        $(tab_home).addClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 2
+        });
+    },
+    calendar: function () {
+        this.close();
+        $('#tab').children().removeClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 3
+        });
+    },
+    date: function () {
+        this.close();
+        $('#tab').children().removeClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 4
+        });
+    },
+    flag: function () {
+        this.close();
+        $('#tab').children().removeClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 5
+        });
+    },
+    question: function () {
+        this.close();
+        $('#tab').children().removeClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 6
+        });
+    },
+    cert: function () {
+        this.close();
+        $('#tab').children().removeClass('aui-active');
+        api.setFrameGroupIndex({
+            name: 'menus',
+            index: 7
+        });
+    }
 }
-function setMenu(index) {
-    api.closeFrameGroup({
-        name:"home"
-    });
-    api.openFrameGroup({
-        name: 'menu',
-        scrollEnabled: false,
-        rect: {
-            x: 'auto',
-            y: '45',
-            w: 'auto',
-            h: screen.height - 100
-        },
-        frames: [
-            {
-                name: 'zhu_ye',
-                url: 'zhu_ye.html'
-            }, {
-                name: 'shou_cang',
-                url: 'shou_cang.html'
-            }, {
-                name: 'an_pai',
-                url: 'an_pai.html'
-            }, {
-                name: 'ti_xing',
-                url: 'ti_xing.html'
-            }, {
-                name: 'li_shi',
-                url: 'li_shi.html'
-            }, {
-                name: 'bang_zhu',
-                url: 'bang_zhu.html'
-            }
-        ]
-    }, function (ret, err) {
-        console.log(JSON.stringify(ret));
-        console.log(JSON.stringify(err));
-    });
-    api.setFrameGroupIndex({
-        name: 'menu',
-        index: index
-    }, function (ret, err) {
-        console.log(JSON.stringify(ret));
-        console.log(JSON.stringify(err));
-    });
-}
-var tab = new auiTab({
-    element: document.getElementById("tab")
-}, function (ret) {
-    var index = ret.index;
-    setHome(index - 1);
-});
+

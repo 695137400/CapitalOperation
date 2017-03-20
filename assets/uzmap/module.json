@@ -1,0 +1,48 @@
+{
+  "modules": [
+    {
+      "name": "contacts",
+      "class": "com.uzmap.pkg.uzmodules.uzContacts.UzContacts"
+    },
+    {
+      "name": "db",
+      "class": "com.uzmap.pkg.uzmodules.uzdb.UzDatebaseSQL"
+    },
+    {
+      "name": "fileBrowser",
+      "class": "com.uzmap.pkg.uzmodules.uzfileBrowser.uzfileBrowser"
+    },
+    {
+      "name": "fs",
+      "class": "com.uzmap.pkg.uzmodules.fs.UzFsUtils"
+    },
+    {
+      "name": "mam",
+      "class": "com.uzmap.pkg.uzmodules.uzmam.UzMAM"
+    },
+    {
+      "name": "model",
+      "class": "com.uzmap.pkg.uzmodules.uzmcm.UzMCM"
+    },
+    {
+      "name": "query",
+      "class": "com.uzmap.pkg.uzmodules.uzmcm.UzMCMQuery"
+    },
+    {
+      "name": "user",
+      "class": "com.uzmap.pkg.uzmodules.uzmcm.UzMCMUser"
+    },
+    {
+      "name": "relation",
+      "class": "com.uzmap.pkg.uzmodules.uzmcm.UzMCMRelation"
+    },
+    {
+      "name": "push",
+      "class": "com.uzmap.pkg.uzmodules.uzpush.UPush"
+    },
+    {
+      "name": "fileUtil",
+      "class": "com.capital.operation.ApicloudFileUtil"
+    }
+  ]
+}

@@ -18,31 +18,37 @@
 <body>
 <!-- 头部 -->
 <div class="aui-searchbar" id="search">
+    <!--返回-->
     <a class="" onclick="sliding()" style="padding: 0;">
         <img src="../image/head_def_icon.png" style="width: 30px;height: 30px;margin-left: 10px;">
     </a>
     <div class="aui-searchbar-input aui-border-radius">
+        <!--搜索-->
         <i class="aui-iconfont aui-icon-search" style="padding-top: 2px;"></i>
         <input type="search" placeholder="请输入搜索内容" id="search-input" style="width: 95%;">
     </div>
     <div class="aui-searchbar-cancel" style="margin-right: 10px;" id="plus" onclick="newMean()">
+        <!--添加-->
         <i class="aui-iconfont aui-icon-plus"></i>
     </div>
 </div>
 <!-- 底部 -->
-<footer class="aui-bar aui-bar-tab aui-tab" id="tab" style="min-height: 45px;z-index: 9999">
-    <div class="aui-bar-tab-item aui-active" style="height: 1rem;">
+<div class="aui-bar aui-bar-tab aui-tab" id="tab" style="min-height: 45px;z-index: 9999">
+    <div class="aui-bar-tab-item aui-active" style="height: 1rem;" id="tab-home">
+        <!--主页-->
         <i class="aui-iconfont aui-icon-home"></i>
     </div>
-    <div class="aui-bar-tab-item" style="height: 1rem;">
+    <div class="aui-bar-tab-item" style="height: 1rem;" id="tab-star">
+        <!--收藏-->
         <i class="aui-iconfont aui-icon-star"></i>
     </div>
-    <div class="aui-bar-tab-item" style="height: 1rem;">
+    <div class="aui-bar-tab-item" style="height: 1rem;" id="tab-my">
+        <!--个人中心-->
         <i class="aui-iconfont aui-icon-my"></i>
     </div>
-</footer>
+</div>
 <script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script src="../script/jquery.js"></script>
 <script src="../script/slide.js"></script>
 </body>
 </html>

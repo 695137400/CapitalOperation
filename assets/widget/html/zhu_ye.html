@@ -1,15 +1,83 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-    <title>APP</title>
-</head>
-<body class="qiushi-frame">
-主页
-</body>
+<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+<link rel="stylesheet" href="../css/aui.css">
+<script src="../script/jquery.js"></script>
+<style>
+    .aui-row {
+        width: 95%;
+    }
+
+    .aui-grid [class*=aui-col-] {
+        padding: 0.3rem 0;
+    }
+
+    .k-row i {
+        float: left;
+        width: 20px;
+    }
+</style>
+<div class="aui-grid" style="position: fixed;z-index: 9;">
+    <div class="aui-row" style="width: 100%;">
+        <div class="aui-col-xs-4" onclick="cert()">
+            <div class="aui-badge">88</div>
+            <i class="aui-iconfont aui-icon-mobile"></i>
+            <div class="aui-grid-label">联系人</div>
+        </div>
+        <div class="aui-col-xs-4" onclick="star()">
+            <i class="aui-iconfont aui-icon-star"></i>
+            <div class="aui-grid-label">收藏</div>
+        </div>
+        <div class="aui-col-xs-4" onclick="calendar()">
+            <i class="aui-iconfont aui-icon-calendar"></i>
+            <div class="aui-grid-label">预约</div>
+        </div>
+        <div class="aui-col-xs-4" onclick="date()">
+            <i class="aui-iconfont aui-icon-date"></i>
+            <div class="aui-grid-label">提醒</div>
+        </div>
+        <div class="aui-col-xs-4" onclick="flag()">
+            <div class="aui-badge"></div>
+            <i class="aui-iconfont aui-icon-flag"></i>
+            <div class="aui-grid-label">历史</div>
+        </div>
+        <div class="aui-col-xs-4" onclick="question()">
+            <div class="aui-dot"></div>
+            <i class="aui-iconfont aui-icon-question"></i>
+            <div class="aui-grid-label">帮助</div>
+        </div>
+    </div>
+</div>
+<div style="overflow-x: scroll;background-color: darkblue;position: relative;" id="zyzt">
+    <ul class="aui-list aui-list-in" style="margin-top: 185px;position: static;background-color: cornflowerblue">
+        <li class="aui-list-item" style="margin-bottom: 25px;">
+            <div class="aui-row">
+                <div class="k-row">
+                    <i class="aui-iconfont aui-icon-my"></i>
+                    <div>李志超</div>
+                </div>
+                <div class="k-row">
+                    <div>15890180607</div>
+                </div>
+                <div class="k-row">
+                    <div>2012-12-12 20:30 周五</div>
+                </div>
+                <div class="k-row">
+                    <div>参加晨会</div>
+                </div>
+                <div class="k-row">
+                    <div>东善桥东善桥东善桥东善桥东善桥</div>
+                </div>
+                <div class="k-row">
+                    <div>带上纸笔，书，开车</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
 <script type="text/javascript" src="../script/api.js"></script>
 <script>
+    window.onload = function () {
+        prompt(1,window.window.window.document.documentElement.outerHTML);
+    }
     apiready = function () {
         api.addEventListener({
             name: 'keyback'
@@ -17,5 +85,41 @@
             return false;
         });
     }
+    function star() {
+        api.execScript({
+            name: 'slide',
+            script: 'menus.star()'
+        });
+    }
+    function calendar() {
+        api.execScript({
+            name: 'slide',
+            script: 'menus.calendar()'
+        });
+    }
+    function date() {
+        api.execScript({
+            name: 'slide',
+            script: 'menus.date()'
+        });
+    }
+    function flag() {
+        api.execScript({
+            name: 'slide',
+            script: 'menus.flag()'
+        });
+    }
+    function question() {
+        api.execScript({
+            name: 'slide',
+            script: 'menus.question()'
+        });
+    }
+    function cert() {
+        api.execScript({
+            name: 'slide',
+            script: 'menus.cert()'
+        });
+        api.closeSlidPane();
+    }
 </script>
-</html>

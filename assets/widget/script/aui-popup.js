@@ -59,11 +59,9 @@
 				document.body.insertAdjacentHTML('beforeend', maskHtml);
 			}
         	el.style.display = "block";
-        	setTimeout(function(){
-        		document.querySelector(__MASK).classList.add(CLASS_MASK_IN);
-	            el.classList.add(CLASS_POPUP_IN);
-                popupStatus = true;
-	        }, 10)
+			document.querySelector(__MASK).classList.add(CLASS_MASK_IN);
+			el.classList.add(CLASS_POPUP_IN);
+			popupStatus = true;
 	        document.querySelector(__MASK).addEventListener("touchstart", function(event){
 	        	event.preventDefault();
 	        	self.hide(el);
@@ -79,15 +77,13 @@
         	if(!document.querySelector(__POPUP_IN))return;
             document.querySelector(__POPUP_IN).classList.add(CLASS_POPUP_OUT);
             document.querySelector(__POPUP_IN).classList.remove(CLASS_POPUP_IN);
-	        setTimeout(function(){
-                if(!document.querySelector(__POPUP_OUT))return;
-	        	document.querySelector(__POPUP_OUT).style.display = "none";
-	            document.querySelector(__POPUP_OUT).classList.remove(CLASS_POPUP_OUT);
-	            if(document.querySelector(__MASK)){
-					document.querySelector(__MASK).parentNode.removeChild(document.querySelector(__MASK));
-				}
-                popupStatus = false;
-	        }, 300)
+			if(!document.querySelector(__POPUP_OUT))return;
+			document.querySelector(__POPUP_OUT).style.display = "none";
+			document.querySelector(__POPUP_OUT).classList.remove(CLASS_POPUP_OUT);
+			if(document.querySelector(__MASK)){
+				document.querySelector(__MASK).parentNode.removeChild(document.querySelector(__MASK));
+			}
+			popupStatus = false;
         }
     };
 	window.auiPopup = auiPopup;

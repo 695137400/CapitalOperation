@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-    <title>APP</title>
+    <title>编辑</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" href="../css/aui.css">
     <link rel="stylesheet" href="../css/sm.css">
@@ -12,34 +12,189 @@
     <script src="../script/zepto.js"></script>
 </head>
 <body>
-<div class="aui-searchbar" style="color: #000;">
+<div class="aui-searchbar" style="color: #000;position: fixed;z-index: 999999;background-color: #ffffff;">
     <div onclick="goBack()">
         <span class="aui-icon-left aui-iconfont"></span>
     </div>
-    <div class="aui-title" style="width: 90%;text-align: center;">新建</div>
+    <div class="aui-title" style="width: 80%;text-align: center;">编辑</div>
+    <div class="aui-list-item-label-icon" onclick="huixian(this)">
+        <i class="aui-iconfont aui-icon-display" style="font-size: 1.3em;"></i>
+    </div>
 </div>
-<div>
-    <ul class="aui-list aui-list-in">
+<div style="overflow-x: scroll;">
+    <ul class="aui-list aui-list-in" style="margin-top: 44px;margin-bottom: 47px;">
         <li class="aui-list-item">
-            <div class="aui-list-item-inner aui-list-item-center aui-list-item-btn">
-                <div class="aui-margin-l-5">
+            <div class="aui-list-item-center aui-row" style="width: 100%">
+                <div class="aui-col-xs-5" style="margin-left: 30%;">
                     <img src="../image/img_addpic.png" style="margin: 2px;">
                 </div>
+                <div class="aui-col-xs-2" style="margin-left: 10px;margin-top: 6%;">
+                    <i class="aui-iconfont aui-icon-star" style="font-size: 30px;color: rgba(8, 148, 236, 0.99);"></i>
+                    <br>
+                    <i class="aui-iconfont aui-icon-date" style="font-size: 30px;color: rgba(8, 148, 236, 0.99);"></i>
+                </div>
             </div>
         </li>
         <li class="aui-list-item">
             <div class="aui-list-item-label-icon">
-                <i class="aui-iconfont aui-icon-calendar"></i>
+                <i class="aui-iconfont aui-icon-pencil"></i>
             </div>
-            <div class="aui-list-item-inner" style="width: 30%;">
-                日期
+            <div class="aui-list-item-inner" style="width: 150px;">
+                姓名
             </div>
-            <div class="aui-list-item-inner page aui-list-item-input" id="page-calendar"
-                 style="background-color:rgba(255, 255, 255, 0);min-height: 55px;">
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="xing_ming"  style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-hide"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                性别
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;line-height: 2.5em;">
+                <div class="content">
+                    <div style="width: 70px;float: left;">
+                        <input type="radio" class="aui-radio" name="xing_bie" style="top: 10px;" checked/>男
+                    </div>
+                    <div>
+                        <input type="radio" class="aui-radio" name="xing_bie" style="top: 10px;"/>女
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-like"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                出生日期
+            </div>
+            <div class="aui-list-item-inner page" style=" width: 450px;background-color:rgba(255, 255, 255, 0);">
                 <div class="aui-list-item-input content">
-                    <input type="text" data-toggle='date' id="date" onchange="getw(this)"
-                           style="width: 150px;display: initial;height: 50px;"/>
-                    <label id="xq">星期三</label>
+                    <input type="text" data-toggle='date' id="sheng_ri" onchange="get_xing_qi(this);get_nian_ling(this)" style="margin-top: 4px;height: 2.3em;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;width: 120px;display: initial;text-align: center"/>
+                    <label id="sheng_ri_xing_qi" style="display: none;"></label>
+                    <label id="nian_ling">0岁</label>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-map"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                出生地址
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="dz" style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-phone"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                联系电话
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="tel" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-qq"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+               QQ
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="qq" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-wechat"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+               微信
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="wechat" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-share"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                家族关系
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="jiazu" style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-display"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                兴趣爱好
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;height: 10em;">
+                <div class="content">
+                    <textarea style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;height: 90%;width: 95%;"></textarea>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-flag"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                历史工作
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="type" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-correct"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                工作特长
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="nl" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-laud"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                领导级别
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="lingdaojibie" style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
                 </div>
             </div>
         </li>
@@ -47,24 +202,95 @@
             <div class="aui-list-item-label-icon">
                 <i class="aui-iconfont aui-icon-calendar"></i>
             </div>
-            <div class="aui-list-item-inner">
-                时间
+            <div class="aui-list-item-inner" style="width:150px;">
+                预约日期
             </div>
-            <div class="aui-list-item-inner" style="margin-left: -40%;">
+            <div class="aui-list-item-inner page" style=" width: 450px;background-color:rgba(255, 255, 255, 0);">
+                <div class="aui-list-item-input content">
+                    <input type="text" data-toggle='date' id="date" onchange="get_xing_qi(this)" style="width: 120px;display: initial;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;text-align: center;"/>
+                    <label id="xq"></label>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-date"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                预约时间
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="sj" onclick="szShow(document.body,szsj)"  readonly/>
+                    <input type="text" id="sj" onclick="szShow(document.body,szsj)" style="height: 2.3em;width: 120px;margin-top: 4px;text-align: center;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;" readonly/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-location"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                预约地点
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="sha_shi"  style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-cert"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                预约事宜
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;">
+                <div class="content">
+                    <input type="text" id="xz"  style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-label-icon">
+                <i class="aui-iconfont aui-icon-comment"></i>
+            </div>
+            <div class="aui-list-item-inner" style="width: 150px;">
+                预约内容
+            </div>
+            <div class="aui-list-item-inner" style=" width: 450px;height: 10em;">
+                <div class="content">
+                    <textarea style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;height: 90%;width: 95%;"></textarea>
                 </div>
             </div>
         </li>
     </ul>
 </div>
-
-
+<footer class="aui-bar aui-bar-tab aui-tab" id="tab" style="min-height: 45px;z-index: 9999">
+    <div class="aui-bar-tab-item aui-active" style="height: 1rem;">
+        <i class="aui-iconfont aui-icon-lock"></i>
+        <p style="margin: 0;">保存</p>
+    </div>
+    <div class="aui-bar-tab-item" style="height: 1rem;">
+        <i class="aui-iconfont aui-icon-star"></i>
+        <p style="margin: 0;">收藏</p>
+    </div>
+    <div class="aui-bar-tab-item" style="height: 1rem;">
+        <i class="aui-iconfont aui-icon-date"></i>
+        <p style="margin: 0;">提醒</p>
+    </div>
+    <div class="aui-bar-tab-item" style="height: 1rem;">
+        <i class="aui-iconfont aui-icon-unlock"></i>
+        <p style="margin: 0;">取消</p>
+    </div>
+</footer>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script src="../script/sm.js"></script>
 <script src="../script/time.js"></script>
 <script>
+    window.$$ = jQuery;
+    //new auiPopup();
     Date.prototype.Format = function (formatStr) {
         var str = formatStr;
         str = str.replace(/yyyy|YYYY/, this.getFullYear());
@@ -75,16 +301,27 @@
         str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
         return str;
     };
-    function szsj(s,f) {
-        $$('#sj').val(s+':'+f);
+    function szsj(s, f) {
+        $$('#sj').val(s + ':' + f);
     }
-    window.$$ = jQuery;
-    var date = new Date();
-    $$('#sj').val(date.Format('HH:mm'));
-    document.getElementById('date').value = new Date().Format("yyyy-MM-dd");
-    function getw(obj) {
-        var w = "日一二三四五六".charAt(new Date(obj.value).getDay());
-        document.getElementById("xq").innerHTML = "星期" + w;
+    function init() {
+        var date = new Date();
+        $$('#sj').val(date.Format('HH:mm'));
+        $$('#date').val(date.Format("yyyy-MM-dd"));
+        get_xing_qi($$('#date'));
+    }
+    function get_xing_qi(obj) {
+        var w = "日一二三四五六".charAt(new Date($$(obj).val()).getDay());
+        $$(obj).next().html("星期" + w).data('xingqi', w);
+    }
+    function get_nian_ling(obj) {
+        var q = parseInt(new Date($$(obj).val()).Format("yyyy"));
+        var x = parseInt(new Date().Format("yyyy"));
+        if (parseInt(new Date($$(obj).val()).Format("MMDD")) > parseInt(new Date().Format("MMDD"))) {
+            $$('#nian_ling').html(((x - q) - 1 | 0) + '岁');
+        } else {
+            $$('#nian_ling').html(((x - q) | 0) + '岁');
+        }
     }
     apiready = function () {
         api.addEventListener({
@@ -98,6 +335,26 @@
             name: 'new'
         });
     }
+    init();
     Zepto.init();
+    function huixian(obj) {
+        if( $$('input[type=radio]:checked').is(':hidden')){
+            $$('input[type=radio]').show();
+            $$('input[type=radio]').not(':checked').parent().show();
+            $$('input[type!=radio],textarea').css({
+                'border':'solid 1px rgba(8, 148, 236, 0.39)'
+            }).attr('Disabled',false);
+            $$(obj).find('i').removeClass('aui-icon-hide');
+            $$(obj).find('i').addClass('aui-icon-display');
+        }else{
+            $$('input[type=radio]:checked').hide();
+            $$('input[type=radio]').not(':checked').parent().hide();
+            $$('input[type!=radio],textarea').attr('Disabled',true).css({
+                'border':'solid 1px rgba(163, 174, 182, 0.388235)'
+            });
+            $$(obj).find('i').removeClass('aui-icon-display');
+            $$(obj).find('i').addClass('aui-icon-hide');
+        }
+    }
 </script>
 </html>
