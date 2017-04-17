@@ -19,26 +19,21 @@ function newMean() {
         }
     });
 }
-var api = {};
 apiready = function () {
-    api = api;
+    window.api = api;
     window.filesUtil = api.require('fileUtil');
-    filesUtil.openDebug(function (e) {
-        alert(e);
-    })
-    /*window.filesUtil = api.require('fileUtil');
-     filesUtil.copyFileToData({
-     oldDirName:"contact.db",
-     newDirName:"contact.db"
-     },function (e) {
-     console.log(e);
-     });
-     filesUtil.copyDataToFile({
-     oldDirName:"contact.db",
-     newDirName:"contact.db"
-     },function (e) {
-     console.log(e);
-     });*/
+    filesUtil.copyFileToData({
+        oldDirName: "contact.db",
+        newDirName: "contact.db"
+    }, function (e) {
+        console.log(e);
+    });
+    filesUtil.copyDataToFile({
+        oldDirName: "contact.db",
+        newDirName: "contact.db"
+    }, function (e) {
+        console.log(e);
+    });
     /**
      * 安卓返回按钮监控
      */
@@ -69,8 +64,8 @@ var menus = {
             rect: {
                 x: 'auto',
                 y: '45',
-                w: 'auto',
-                h: 'auto'
+                w: api.winWidth,
+                h: (api.winHeight-$api.dom('#tab').offsetHeight)-40
             },
             frames: [
                 {

@@ -1,16 +1,15 @@
 package com.capital.operation;
 
-import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.webkit.WebView;
 import com.uzmap.pkg.uzcore.UZWebView;
-import com.uzmap.pkg.uzcore.annotation.UzJavascriptMethod;
 import com.uzmap.pkg.uzcore.uzmodule.UZModule;
 import com.uzmap.pkg.uzcore.uzmodule.UZModuleContext;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.HashMap;
 
 /**
  * <P style='margin: 0px; padding: 0px;'><b>PackageName:</b> com.capital.operation.</P>
@@ -25,7 +24,10 @@ public class ApicloudFileUtil extends UZModule {
         super(webView);
     }
 
-    @UzJavascriptMethod
+    /**
+     * 写入db到私有目录
+     * @param context
+     */
     public void jsmethod_copyFileToData(UZModuleContext context) {
         String oldDirName = context.optString("oldDirName");
         String newDirName = context.optString("newDirName");
@@ -46,11 +48,14 @@ public class ApicloudFileUtil extends UZModule {
             map.put("message", "拷贝文件成功！");
             context.success(map, true);
         } catch (Exception e) {
-            context.success("拷贝文件失败！" + e.getMessage(), false, true);
+            context.success("{results:false,message:'拷贝文件失败！" + e.getMessage() + "'}", false, true);
         }
     }
 
-    @UzJavascriptMethod
+    /**
+     * 拷贝db到内存卡
+     * @param context
+     */
     public void jsmethod_copyDataToFile(UZModuleContext context) {
         String oldDirName = context.optString("oldDirName");
         String newDirName = context.optString("newDirName");
@@ -75,25 +80,7 @@ public class ApicloudFileUtil extends UZModule {
             map.put("message", "拷贝文件成功！");
             context.success(map, true);
         } catch (Exception e) {
-            context.success("{results:false,message:'拷贝文件失败！'}" + e.getMessage(), false, true);
-        }
-    }
-    @UzJavascriptMethod
-    public void jsmethod_openDebug(UZModuleContext context)
-    {
-        try
-        {
-            JSONObject localJSONObject = new JSONObject();
-            if (Build.VERSION.SDK_INT >= 19)
-            {
-                WebView.setWebContentsDebuggingEnabled(true);
-                localJSONObject.put("result", "success");
-                localJSONObject.put("code", 1000);
-            }
-        }
-        catch (Exception e)
-        {
-            context.success("{results:false,message:'谷歌调试失败！'}" + e.getMessage(), false, true);
+            context.success("{results:false,message:'拷贝文件失败！" + e.getMessage()+"'}", false, true);
         }
     }
     /*@UzJavascriptMethod
