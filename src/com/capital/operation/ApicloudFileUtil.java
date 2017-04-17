@@ -26,6 +26,7 @@ public class ApicloudFileUtil extends UZModule {
 
     /**
      * 写入db到私有目录
+     *
      * @param context
      */
     public void jsmethod_copyFileToData(UZModuleContext context) {
@@ -33,7 +34,8 @@ public class ApicloudFileUtil extends UZModule {
         String newDirName = context.optString("newDirName");
         try {
             InputStream in = this.getContext().getResources().getAssets().open(oldDirName);
-            OutputStream os = new FileOutputStream(new File(mContext.getFilesDir().getPath() + "/" + newDirName));
+            String path = "/data/data/com.capital.operation/databases/" + newDirName;
+            OutputStream os = new FileOutputStream(new File(path));
             //文件拷贝
             byte flush[] = new byte[1024];
             int len = 0;
@@ -54,13 +56,15 @@ public class ApicloudFileUtil extends UZModule {
 
     /**
      * 拷贝db到内存卡
+     *
      * @param context
      */
     public void jsmethod_copyDataToFile(UZModuleContext context) {
         String oldDirName = context.optString("oldDirName");
         String newDirName = context.optString("newDirName");
         try {
-            InputStream in = new FileInputStream(new File(mContext.getFilesDir().getPath() + "/" + oldDirName));
+            String path = "/data/data/com.capital.operation/databases/" + oldDirName;
+            InputStream in = new FileInputStream(new File(path));
             File file = new File(Environment.getExternalStorageDirectory().getPath() + "/CapitalOperation/");
             if (!file.exists()) {
                 file.mkdirs();
@@ -80,7 +84,7 @@ public class ApicloudFileUtil extends UZModule {
             map.put("message", "拷贝文件成功！");
             context.success(map, true);
         } catch (Exception e) {
-            context.success("{results:false,message:'拷贝文件失败！" + e.getMessage()+"'}", false, true);
+            context.success("{results:false,message:'拷贝文件失败！" + e.getMessage() + "'}", false, true);
         }
     }
     /*@UzJavascriptMethod

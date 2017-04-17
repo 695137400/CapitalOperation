@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/sm.css">
     <script src="../script/jquery.js"></script>
     <script src="../script/zepto.js"></script>
+    <script src="../script/eruda.js"></script>
 </head>
 <body>
 <div class="aui-searchbar" style="color: #000;position: fixed;z-index: 999999;background-color: #ffffff;">
@@ -44,7 +45,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="xing_ming"  style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
+                    <input type="text" id="xing_ming"
+                           style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
                 </div>
             </div>
         </li>
@@ -75,7 +77,8 @@
             </div>
             <div class="aui-list-item-inner page" style=" width: 450px;background-color:rgba(255, 255, 255, 0);">
                 <div class="aui-list-item-input content">
-                    <input type="text" data-toggle='date' id="sheng_ri" onchange="get_xing_qi(this);get_nian_ling(this)" style="margin-top: 4px;height: 2.3em;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;width: 120px;display: initial;text-align: center"/>
+                    <input type="text" data-toggle='date' id="sheng_ri" onchange="get_xing_qi(this);get_nian_ling(this)"
+                           style="margin-top: 4px;height: 2.3em;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;width: 120px;display: initial;text-align: center"/>
                     <label id="sheng_ri_xing_qi" style="display: none;"></label>
                     <label id="nian_ling">0岁</label>
                 </div>
@@ -90,7 +93,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="dz" style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
+                    <input type="text" id="dz"
+                           style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
                 </div>
             </div>
         </li>
@@ -103,7 +107,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="tel" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                    <input type="number" id="tel"
+                           style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
                 </div>
             </div>
         </li>
@@ -112,11 +117,12 @@
                 <i class="aui-iconfont aui-icon-qq"></i>
             </div>
             <div class="aui-list-item-inner" style="width: 150px;">
-               QQ
+                QQ
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="qq" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                    <input type="number" id="qq"
+                           style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
                 </div>
             </div>
         </li>
@@ -125,11 +131,12 @@
                 <i class="aui-iconfont aui-icon-wechat"></i>
             </div>
             <div class="aui-list-item-inner" style="width: 150px;">
-               微信
+                微信
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="wechat" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                    <input type="text" id="wechat"
+                           style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
                 </div>
             </div>
         </li>
@@ -142,7 +149,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="jiazu" style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
+                    <input type="text" id="jiazu"
+                           style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
                 </div>
             </div>
         </li>
@@ -168,7 +176,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="type" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                    <input type="text" id="type"
+                           style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
                 </div>
             </div>
         </li>
@@ -181,7 +190,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="nl" style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                    <input type="text" id="nl"
+                           style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
                 </div>
             </div>
         </li>
@@ -194,7 +204,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="lingdaojibie" style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
+                    <input type="text" id="lingdaojibie"
+                           style="padding: 4px;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;"/>
                 </div>
             </div>
         </li>
@@ -207,7 +218,8 @@
             </div>
             <div class="aui-list-item-inner page" style=" width: 450px;background-color:rgba(255, 255, 255, 0);">
                 <div class="aui-list-item-input content">
-                    <input type="text" data-toggle='date' id="date" onchange="get_xing_qi(this)" style="width: 120px;display: initial;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;text-align: center;"/>
+                    <input type="text" data-toggle='date' id="date" onchange="get_xing_qi(this)"
+                           style="width: 120px;display: initial;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;text-align: center;"/>
                     <label id="xq"></label>
                 </div>
             </div>
@@ -221,7 +233,9 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="sj" onclick="szShow(document.body,szsj)" style="height: 2.3em;width: 120px;margin-top: 4px;text-align: center;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;" readonly/>
+                    <input type="text" id="sj" onclick="szShow(document.body,szsj)"
+                           style="height: 2.3em;width: 120px;margin-top: 4px;text-align: center;border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;"
+                           readonly/>
                 </div>
             </div>
         </li>
@@ -234,7 +248,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="sha_shi"  style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                    <input type="text" id="sha_shi"
+                           style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
                 </div>
             </div>
         </li>
@@ -247,7 +262,8 @@
             </div>
             <div class="aui-list-item-inner" style=" width: 450px;">
                 <div class="content">
-                    <input type="text" id="xz"  style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
+                    <input type="text" id="xz"
+                           style="border: solid 1px rgba(8, 148, 236, 0.39);border-radius: 10px;margin-top: 4px;height: 2.3em;width: 80%;padding: 4px;"/>
                 </div>
             </div>
         </li>
@@ -267,8 +283,8 @@
     </ul>
 </div>
 <footer class="aui-bar aui-bar-tab aui-tab" id="tab" style="min-height: 45px;z-index: 9999">
-    <div class="aui-bar-tab-item aui-active" style="height: 1rem;">
-        <i class="aui-iconfont aui-icon-lock"></i>
+    <div class="aui-bar-tab-item aui-active" style="height: 1rem;" onclick="saveAllData()">
+        <i class="aui-iconfont aui-icon-correct"></i>
         <p style="margin: 0;">保存</p>
     </div>
     <div class="aui-bar-tab-item" style="height: 1rem;">
@@ -280,7 +296,7 @@
         <p style="margin: 0;">提醒</p>
     </div>
     <div class="aui-bar-tab-item" style="height: 1rem;">
-        <i class="aui-iconfont aui-icon-unlock"></i>
+        <i class="aui-iconfont aui-icon-close"></i>
         <p style="margin: 0;">取消</p>
     </div>
 </footer>
@@ -304,16 +320,25 @@
     function szsj(s, f) {
         $$('#sj').val(s + ':' + f);
     }
+    /**
+     * 初始化日期
+     */
     function init() {
         var date = new Date();
         $$('#sj').val(date.Format('HH:mm'));
         $$('#date').val(date.Format("yyyy-MM-dd"));
         get_xing_qi($$('#date'));
     }
+    /**
+     * 计算星期
+     */
     function get_xing_qi(obj) {
         var w = "日一二三四五六".charAt(new Date($$(obj).val()).getDay());
         $$(obj).next().html("星期" + w).data('xingqi', w);
     }
+    /**
+     * 计算年龄
+     */
     function get_nian_ling(obj) {
         var q = parseInt(new Date($$(obj).val()).Format("yyyy"));
         var x = parseInt(new Date().Format("yyyy"));
@@ -327,6 +352,7 @@
         api.addEventListener({
             name: 'keyback'
         }, function (ret, err) {
+            alert(ret);
             return false;
         });
     }
@@ -337,24 +363,43 @@
     }
     init();
     Zepto.init();
+    /**
+     * 编辑与查看
+     */
     function huixian(obj) {
-        if( $$('input[type=radio]:checked').is(':hidden')){
+        if ($$('input[type=radio]:checked').is(':hidden')) {
             $$('input[type=radio]').show();
             $$('input[type=radio]').not(':checked').parent().show();
             $$('input[type!=radio],textarea').css({
-                'border':'solid 1px rgba(8, 148, 236, 0.39)'
-            }).attr('Disabled',false);
+                'border': 'solid 1px rgba(8, 148, 236, 0.39)'
+            }).attr('Disabled', false);
             $$(obj).find('i').removeClass('aui-icon-hide');
             $$(obj).find('i').addClass('aui-icon-display');
-        }else{
+        } else {
             $$('input[type=radio]:checked').hide();
             $$('input[type=radio]').not(':checked').parent().hide();
-            $$('input[type!=radio],textarea').attr('Disabled',true).css({
-                'border':'solid 1px rgba(163, 174, 182, 0.388235)'
+            $$('input[type!=radio],textarea').attr('Disabled', true).css({
+                'border': 'solid 1px rgba(163, 174, 182, 0.388235)'
             });
             $$(obj).find('i').removeClass('aui-icon-display');
             $$(obj).find('i').addClass('aui-icon-hide');
         }
     }
+    /**
+     * 保存数据
+     */
+    function saveAllData() {
+        var db = api.require('db');
+        db.openDatabase({
+            name: 'contact'
+        }, function(ret, err) {
+            if (ret.status) {
+                alert(JSON.stringify(ret));
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+    }
+    eruda.init();
 </script>
 </html>
