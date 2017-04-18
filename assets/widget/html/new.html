@@ -348,11 +348,14 @@
             $$('#nian_ling').html(((x - q) | 0) + '岁');
         }
     }
+    var db = null;
     apiready = function () {
+        db = api.require('db');
+        db.isOpen = false;
+        window.filesUtil = api.require('fileUtil');
         api.addEventListener({
             name: 'keyback'
         }, function (ret, err) {
-            alert(ret);
             return false;
         });
     }
@@ -385,14 +388,37 @@
             $$(obj).find('i').addClass('aui-icon-hide');
         }
     }
+
     /**
      * 保存数据
      */
     function saveAllData() {
-        var db = api.require('db');
+        openDB();
+        if (db.isOpen) {
+            alert(1);
+            selectDB();
+        }
+    }
+    function openDB() {
         db.openDatabase({
             name: 'contact'
-        }, function(ret, err) {
+        }, function (ret, err) {
+            if (ret.status) {
+                db.isOpen = true;
+                filesUtil.log({tag: 'openDatabase', message: ret});
+                return true;
+            } else {
+                filesUtil.log({tag: 'openDatabase', message: err});
+                db.isOpen = false;
+                return false;
+            }
+        });
+    }
+    function selectDB() {
+        db.selectSql({
+            name: 'contact',
+            sql: 'SELECT * FROM contacts'
+        }, function (ret, err) {
             if (ret.status) {
                 alert(JSON.stringify(ret));
             } else {

@@ -87,6 +87,13 @@ public class ApicloudFileUtil extends UZModule {
             context.success("{results:false,message:'拷贝文件失败！" + e.getMessage() + "'}", false, true);
         }
     }
+
+    public void jsmethod_log(UZModuleContext context) {
+        String TAG = context.optString("tag");
+        String message = context.optString("message");
+        LOG.debug(TAG,message);
+    }
+
     /*@UzJavascriptMethod
     public void jsmethod_getSDCardPath(UZModuleContext context) {
         context.success(fileHelp.getSDCardPath(), false, true);

@@ -20,28 +20,30 @@ function newMean() {
     });
 }
 apiready = function () {
-    window.api = api;
-    window.filesUtil = api.require('fileUtil');
-    filesUtil.copyFileToData({
-        oldDirName: "contact.db",
-        newDirName: "contact.db"
-    }, function (e) {
-        console.log(e);
-    });
-    filesUtil.copyDataToFile({
-        oldDirName: "contact.db",
-        newDirName: "contact.db"
-    }, function (e) {
-        console.log(e);
-    });
     /**
      * 安卓返回按钮监控
      */
     api.addEventListener({
         name: 'keyback'
     }, function (ret, err) {
+        alert(ret);
         api.closeWidget();
     });
+    window.api = api;
+    window.filesUtil = api.require('fileUtil');
+    filesUtil.copyFileToData({
+        oldDirName: "contact.db",
+        newDirName: "contact.db"
+    }, function (e) {
+        filesUtil.log({tag: 'copyFileToData', message: e});
+    });
+    filesUtil.copyDataToFile({
+        oldDirName: "contact.db",
+        newDirName: "contact.db"
+    }, function (e) {
+        filesUtil.log({tag: 'copyDataToFile', message: e});
+    });
+
     /**
      * 三个主页展示列表
      */
@@ -65,7 +67,7 @@ var menus = {
                 x: 'auto',
                 y: '45',
                 w: api.winWidth,
-                h: (api.winHeight-$api.dom('#tab').offsetHeight)-40
+                h: (api.winHeight - $api.dom('#tab').offsetHeight) - 40
             },
             frames: [
                 {

@@ -11,17 +11,18 @@ import java.util.Date;
  * Created by admin on 2016/11/25.
  */
 public class LOG {
-    static File file = new File("/sdcard/CapitalOperation/log.txt");
+    static String path = "/sdcard/CapitalOperation/";
+    static File file = new File(path + "log.txt");
 
     public static void debug(String methodName, String info) {
         try {
             if (!file.exists()) {
-                file = new File(methodName+".log");
+                file = new File(path + "log.txt");
                 file.createNewFile();
             }
             Writer w = new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8");
             Date date = new Date();
-            SimpleDateFormat time=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             w.write("\n");
             w.write(time.format(date));
             w.write("\n执行方法：");
