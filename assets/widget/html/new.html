@@ -11,6 +11,7 @@
     <script src="../script/jquery.js"></script>
     <script src="../script/zepto.js"></script>
     <script src="../script/eruda.js"></script>
+    <script src="../script/aui-toast.js"></script>
 </head>
 <body>
 <div class="aui-searchbar" style="color: #000;position: fixed;z-index: 999999;background-color: #ffffff;">
@@ -388,41 +389,69 @@
             $$(obj).find('i').addClass('aui-icon-hide');
         }
     }
-
+    var toast = new auiToast({});
     /**
      * 保存数据
      */
     function saveAllData() {
-        openDB();
-        if (db.isOpen) {
-            alert(1);
-            selectDB();
-        }
+        toast.loading({
+            title: "数据加载中",
+            duration: 2000
+        }, function () {
+            openDB(function (ret) {
+                if (ret) {
+                    setTimeout(function () {
+                        if (db.isOpen) {
+                            var sql =  'SELECT * FROM contacts';
+                            selectDB(sql,function (res, ret) {
+                                if (res) {
+                                    toast.hide();
+                                    console.log(JSON.stringify(ret));
+                                } else {
+                                    toast.hide();
+                                    console.log(JSON.stringify(ret));
+                                }
+                            });
+                        }
+                    }, 3000);
+                } else {
+                    setTimeout(function () {
+                        toast.hide();
+                        toast.fail({
+                            title: "查询失败",
+                            duration: 2000
+                        });
+                    }, 3000);
+                }
+            });
+        });
     }
-    function openDB() {
+    function openDB(callback) {
         db.openDatabase({
             name: 'contact'
         }, function (ret, err) {
             if (ret.status) {
                 db.isOpen = true;
                 filesUtil.log({tag: 'openDatabase', message: ret});
-                return true;
+                callback(true);
             } else {
                 filesUtil.log({tag: 'openDatabase', message: err});
                 db.isOpen = false;
-                return false;
+                callback(false);
             }
         });
     }
-    function selectDB() {
+    function selectDB(sql, callback) {
         db.selectSql({
             name: 'contact',
-            sql: 'SELECT * FROM contacts'
+            sql: sql
         }, function (ret, err) {
             if (ret.status) {
-                alert(JSON.stringify(ret));
+                //alert(JSON.stringify(ret));
+                callback(true, ret);
             } else {
-                alert(JSON.stringify(err));
+                //alert(JSON.stringify(err));
+                callback(false, err);
             }
         });
     }

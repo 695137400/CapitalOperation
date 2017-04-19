@@ -29,19 +29,14 @@ apiready = function () {
         alert(ret);
         api.closeWidget();
     });
+    window.toast = new auiToast({});
     window.api = api;
     window.filesUtil = api.require('fileUtil');
     filesUtil.copyFileToData({
-        oldDirName: "contact.db",
-        newDirName: "contact.db"
+        oldDirName: "contact",
+        newDirName: "contact"
     }, function (e) {
         filesUtil.log({tag: 'copyFileToData', message: e});
-    });
-    filesUtil.copyDataToFile({
-        oldDirName: "contact.db",
-        newDirName: "contact.db"
-    }, function (e) {
-        filesUtil.log({tag: 'copyDataToFile', message: e});
     });
 
     /**
@@ -180,6 +175,33 @@ var menus = {
             name: 'menus',
             index: 7
         });
+    },
+    back: function () {
+        toast.loading({
+            title: "正在备份",
+            duration: 2000
+        }, function () {
+            setTimeout(function () {
+                filesUtil.copyDataToFile({
+                    oldDirName: "contact",
+                    newDirName: "contact"
+                }, function (e) {
+                    if (e.results) {
+                        toast.hide();
+                        toast.success({
+                            title: "备份成功",
+                            duration: 2000
+                        });
+                    } else {
+                        toast.fail({
+                            title: "备份失败",
+                            duration: 2000
+                        });
+                    }
+                    filesUtil.log({tag: 'copyDataToFile', message: e});
+                });
+            }, 13000);
+        });
     }
-}
+};
 

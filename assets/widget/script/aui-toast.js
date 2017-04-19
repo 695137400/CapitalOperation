@@ -31,7 +31,8 @@
             }
 
             var titleHtml = params.title ? '<div class="aui-toast-content">'+params.title+'</div>' : '';
-            toastHtml = '<div class="aui-toast">'+iconHtml+titleHtml+'</div>';
+            var tos = '<div style="width: 1000px;height: 1000px;background-color: rgba(111, 106, 106, 0.22);position: fixed;top: 0px;">';
+            toastHtml = tos+'<div class="aui-toast">'+iconHtml+titleHtml+'</div></div>';
             if(document.querySelector(".aui-toast"))return;
             document.body.insertAdjacentHTML('beforeend', toastHtml);
             var duration = params.duration ? params.duration : "2000";
@@ -57,7 +58,7 @@
         hide: function(){
             var self = this;
             if(document.querySelector(".aui-toast")){
-                document.querySelector(".aui-toast").parentNode.removeChild(document.querySelector(".aui-toast"));
+                document.querySelector(".aui-toast").parentNode.remove();
             }
         },
         remove: function(){

@@ -34,8 +34,14 @@ public class ApicloudFileUtil extends UZModule {
         String newDirName = context.optString("newDirName");
         try {
             InputStream in = this.getContext().getResources().getAssets().open(oldDirName);
-            String path = "/data/data/com.capital.operation/databases/" + newDirName;
-            OutputStream os = new FileOutputStream(new File(path));
+            String path = "/data/data/com.capital.operation/databases/";
+            if (!new File(path).exists()) {
+                new File(path).mkdirs();
+            }
+            if (!new File(path + newDirName).exists()) {
+                new File(path + newDirName).createNewFile();
+            }
+            OutputStream os = new FileOutputStream(new File(path + newDirName));
             //文件拷贝
             byte flush[] = new byte[1024];
             int len = 0;
@@ -69,7 +75,10 @@ public class ApicloudFileUtil extends UZModule {
             if (!file.exists()) {
                 file.mkdirs();
             }
-            OutputStream os = new FileOutputStream(file.getPath() + "/" + newDirName);
+            if (!new File(file.getPath() + "/" + newDirName).exists()) {
+                new File(file.getPath() + "/" + newDirName).createNewFile();
+            }
+            OutputStream os = new FileOutputStream(new File(file.getPath() + "/" + newDirName));
             //文件拷贝
             byte flush[] = new byte[1024];
             int len = 0;
