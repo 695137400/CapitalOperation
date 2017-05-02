@@ -31,12 +31,12 @@ apiready = function () {
     });
     window.toast = new auiToast({});
     window.api = api;
-    window.filesUtil = api.require('fileUtil');
-    filesUtil.copyFileToData({
+    window.ApiUtil = api.require('ApiUtil');
+    ApiUtil.copyFileToData({
         oldDirName: "contact",
         newDirName: "contact"
     }, function (e) {
-        filesUtil.log({tag: 'copyFileToData', message: e});
+        ApiUtil.log({tag: 'copyFileToData', message: e});
     });
 
     /**
@@ -177,30 +177,42 @@ var menus = {
         });
     },
     back: function () {
-        toast.loading({
-            title: "正在备份",
-            duration: 2000
-        }, function () {
-            setTimeout(function () {
-                filesUtil.copyDataToFile({
-                    oldDirName: "contact",
-                    newDirName: "contact"
-                }, function (e) {
-                    if (e.results) {
-                        toast.hide();
-                        toast.success({
-                            title: "备份成功",
-                            duration: 2000
+        ApiUtil.Toast({
+            type: "loading",
+            isHide: "false"
+        });
+        ApiUtil.copyDataToFile({
+            oldDirName: "contact",
+            newDirName: "contact"
+        }, function (e) {
+            if (e.results) {
+                setTimeout(function () {
+                    ApiUtil.Toast({
+                        type: "success",
+                        isHide: "false"
+                    });
+                    setTimeout(function () {
+                        ApiUtil.Toast({
+                            type: "success",
+                            isHide: "true"
                         });
-                    } else {
-                        toast.fail({
-                            title: "备份失败",
-                            duration: 2000
+                    }, 500);
+                }, 2000);
+            } else {
+                setTimeout(function () {
+                    ApiUtil.Toast({
+                        type: "fail",
+                        isHide: "false"
+                    });
+                    setTimeout(function () {
+                        ApiUtil.Toast({
+                            type: "fail",
+                            isHide: "true"
                         });
-                    }
-                    filesUtil.log({tag: 'copyDataToFile', message: e});
-                });
-            }, 13000);
+                    }, 500);
+                }, 2000);
+            }
+            ApiUtil.log({tag: 'copyDataToFile', message: e});
         });
     }
 };

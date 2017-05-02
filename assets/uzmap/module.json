@@ -41,7 +41,7 @@
       "class": "com.uzmap.pkg.uzmodules.uzpush.UPush"
     },
     {
-      "name": "fileUtil",
+      "name": "ApiUtil",
       "class": "com.capital.operation.ApicloudFileUtil"
     }
   ]

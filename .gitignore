@@ -19,11 +19,6 @@ hs_err_pid*
 .gitignore
 .idea/
 CapitalOperation.iml
-/bin/classesdebug/com/capital/operation
-/bin
-/bin
-bin
-bin
-/bin
+/bin/
 operation
-bin
+res/xml/

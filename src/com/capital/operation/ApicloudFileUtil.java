@@ -1,15 +1,29 @@
 package com.capital.operation;
 
-import android.os.Build;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Movie;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
-import android.webkit.WebView;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.uzmap.pkg.uzcore.UZWebView;
 import com.uzmap.pkg.uzcore.uzmodule.UZModule;
 import com.uzmap.pkg.uzcore.uzmodule.UZModuleContext;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.util.HashMap;
 
 /**
  * <P style='margin: 0px; padding: 0px;'><b>PackageName:</b> com.capital.operation.</P>
@@ -100,9 +114,55 @@ public class ApicloudFileUtil extends UZModule {
     public void jsmethod_log(UZModuleContext context) {
         String TAG = context.optString("tag");
         String message = context.optString("message");
-        LOG.debug(TAG,message);
+        LOG.debug(TAG, message);
     }
-
+    static  AlertDialog al = null;
+    public void jsmethod_Toast(UZModuleContext context) {
+        String type = context.optString("type");
+        String isHide = context.optString("isHide");
+        ImageView iv = new ImageView(context.getContext());
+        if ("success".equals(type)) {
+            iv.setImageResource(R.drawable.success);
+            System.out.println("success");
+        }
+        if ("fail".equals(type)) {
+            iv.setImageResource(R.drawable.fail);
+            System.out.println("fail");
+        }
+        if ("loading".equals(type)) {
+            iv.setImageResource(R.drawable.loading);
+            System.out.println("loading");
+        }
+       // iv.setBackgroundColor(Color.parseColor("#000000"));
+        //iv.getBackground().setAlpha(255);
+        if (null == al) {
+            al = new AlertDialog.Builder(context.getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK).setCancelable(false).create();
+        }else{
+            al.dismiss();
+            al.hide();
+            al = new AlertDialog.Builder(context.getContext(), AlertDialog.THEME_DEVICE_DEFAULT_DARK).setCancelable(false).create();
+        }
+        LinearLayout ll = new LinearLayout(context.getContext());
+        ll.setOrientation(1);
+       // ll.setBackgroundColor(Color.parseColor("#ffffff"));
+        //ll.getBackground().setAlpha(255);
+        ll.setGravity(Gravity.CENTER);
+        ll.addView(iv);
+        al.setView(ll, 0, 0, 0, 0);
+        if ("true".equals(isHide)) {
+            System.out.println("关闭");
+            al.dismiss();
+            al.hide();
+        }else{
+            al.show();
+        }
+        Window window = al.getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        //lp.alpha = 0f;
+        lp.width = 400;
+        lp.height = 400;
+        window.setAttributes(lp);
+    }
     /*@UzJavascriptMethod
     public void jsmethod_getSDCardPath(UZModuleContext context) {
         context.success(fileHelp.getSDCardPath(), false, true);

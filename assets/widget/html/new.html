@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../css/sm.css">
     <script src="../script/jquery.js"></script>
     <script src="../script/zepto.js"></script>
-    <script src="../script/eruda.js"></script>
     <script src="../script/aui-toast.js"></script>
 </head>
 <body>
@@ -353,11 +352,11 @@
     apiready = function () {
         db = api.require('db');
         db.isOpen = false;
-        window.filesUtil = api.require('fileUtil');
+        window.ApiUtil = api.require('ApiUtil');
         api.addEventListener({
             name: 'keyback'
         }, function (ret, err) {
-            return false;
+            alert('按了返回键');
         });
     }
     function goBack() {
@@ -389,41 +388,66 @@
             $$(obj).find('i').addClass('aui-icon-hide');
         }
     }
-    var toast = new auiToast({});
     /**
      * 保存数据
      */
     function saveAllData() {
-        toast.loading({
-            title: "数据加载中",
-            duration: 2000
-        }, function () {
-            openDB(function (ret) {
-                if (ret) {
-                    setTimeout(function () {
-                        if (db.isOpen) {
-                            var sql =  'SELECT * FROM contacts';
-                            selectDB(sql,function (res, ret) {
-                                if (res) {
-                                    toast.hide();
-                                    console.log(JSON.stringify(ret));
-                                } else {
-                                    toast.hide();
-                                    console.log(JSON.stringify(ret));
-                                }
-                            });
-                        }
-                    }, 3000);
-                } else {
-                    setTimeout(function () {
-                        toast.hide();
-                        toast.fail({
-                            title: "查询失败",
-                            duration: 2000
+        ApiUtil.Toast({
+            type: "loading",
+            isHide: "false"
+        });
+        openDB(function (ret) {
+            if (ret) {
+                setTimeout(function () {
+                    if (db.isOpen) {
+                        var sql =  'SELECT * FROM contacts';
+                        selectDB(sql,function (res, ret) {
+                            if (res) {
+                                setTimeout(function () {
+                                    ApiUtil.Toast({
+                                        type: "success",
+                                        isHide: "false"
+                                    });
+                                    setTimeout(function () {
+                                        ApiUtil.Toast({
+                                            type: "success",
+                                            isHide: "true"
+                                        });
+                                    }, 500);
+                                }, 2000);
+                                console.log(JSON.stringify(ret));
+                            } else {
+                                setTimeout(function () {
+                                    ApiUtil.Toast({
+                                        type: "fail",
+                                        isHide: "false"
+                                    });
+                                    setTimeout(function () {
+                                        ApiUtil.Toast({
+                                            type: "fail",
+                                            isHide: "true"
+                                        });
+                                    }, 500);
+                                },2000);
+                                console.log(JSON.stringify(ret));
+                            }
                         });
-                    }, 3000);
-                }
-            });
+                    }
+                }, 2000);
+            } else {
+                setTimeout(function () {
+                    ApiUtil.Toast({
+                        type: "fail",
+                        isHide: "false"
+                    });
+                    setTimeout(function () {
+                        ApiUtil.Toast({
+                            type: "fail",
+                            isHide: "true"
+                        });
+                    }, 500);
+                }, 2000);
+            }
         });
     }
     function openDB(callback) {
@@ -432,10 +456,10 @@
         }, function (ret, err) {
             if (ret.status) {
                 db.isOpen = true;
-                filesUtil.log({tag: 'openDatabase', message: ret});
+                ApiUtil.log({tag: 'openDatabase', message: ret});
                 callback(true);
             } else {
-                filesUtil.log({tag: 'openDatabase', message: err});
+                ApiUtil.log({tag: 'openDatabase', message: err});
                 db.isOpen = false;
                 callback(false);
             }
@@ -455,6 +479,5 @@
             }
         });
     }
-    eruda.init();
 </script>
 </html>
