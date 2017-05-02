@@ -429,6 +429,9 @@
      * 保存数据
      */
     function saveAllData() {
+        if (!confirm("确认保存？")) {
+            return;
+        }
         var user = {};
         user.name = $('#xing_ming').val() || null;//姓名
         user.sex = $('input[name="xing_bie"]:checked').val() || null;//性别
