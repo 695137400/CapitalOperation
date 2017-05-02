@@ -1,3 +1,14 @@
+
+Date.prototype.Format = function (formatStr) {
+    var str = formatStr;
+    str = str.replace(/yyyy|YYYY/, this.getFullYear());
+    str = str.replace(/MM/, (this.getMonth() + 1) > 9 ? (this.getMonth() + 1).toString() : '0' + (this.getMonth() + 1));
+    str = str.replace(/dd|DD/, this.getDate() > 9 ? this.getDate().toString() : '0' + this.getDate());
+    str = str.replace(/hh|HH/, this.getHours() > 9 ? this.getHours().toString() : '0' + this.getHours());
+    str = str.replace(/mm/, (this.getMinutes() + 1) > 9 && (this.getMinutes() + 1) <= 59 ? (this.getMinutes() + 1).toString() : ((this.getMinutes() + 1) <= 59 ? ('0' + (this.getMinutes() + 1)) : (this.getMinutes())));
+    str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
+    return str;
+};
 /**
  * 返回
  */
@@ -26,7 +37,6 @@ apiready = function () {
     api.addEventListener({
         name: 'keyback'
     }, function (ret, err) {
-        alert(ret);
         api.closeWidget();
     });
     window.toast = new auiToast({});
@@ -183,7 +193,7 @@ var menus = {
         });
         ApiUtil.copyDataToFile({
             oldDirName: "contact",
-            newDirName: "contact"
+            newDirName: new Date().Format('YYYYMMDDHHmmss')
         }, function (e) {
             if (e.results) {
                 setTimeout(function () {
@@ -196,6 +206,7 @@ var menus = {
                             type: "success",
                             isHide: "true"
                         });
+                        alert("数据已经备份至内存卡，[数据]文件夹，\n以时间命名的一个db文件，可以用专用数据库管理软件打开,请注意保存！");
                     }, 500);
                 }, 2000);
             } else {

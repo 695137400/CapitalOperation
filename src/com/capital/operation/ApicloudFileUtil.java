@@ -85,14 +85,15 @@ public class ApicloudFileUtil extends UZModule {
         try {
             String path = "/data/data/com.capital.operation/databases/" + oldDirName;
             InputStream in = new FileInputStream(new File(path));
-            File file = new File(Environment.getExternalStorageDirectory().getPath() + "/CapitalOperation/");
+            File file = new File(Environment.getExternalStorageDirectory().getPath() + "/数据备份/");
             if (!file.exists()) {
                 file.mkdirs();
             }
+            new File(file.getPath() + "/此文件夹下是数据备份文件，请妥善保存！").createNewFile();
             if (!new File(file.getPath() + "/" + newDirName).exists()) {
-                new File(file.getPath() + "/" + newDirName).createNewFile();
+                new File(file.getPath() + "/" + newDirName+".db").createNewFile();
             }
-            OutputStream os = new FileOutputStream(new File(file.getPath() + "/" + newDirName));
+            OutputStream os = new FileOutputStream(new File(file.getPath() + "/" + newDirName+".db"));
             //文件拷贝
             byte flush[] = new byte[1024];
             int len = 0;

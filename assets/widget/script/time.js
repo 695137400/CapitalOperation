@@ -1,7 +1,6 @@
 /**
  * Created by 69513 on 2017年2年19年0019.
  */
-window.$$ = jQuery;
 Date.prototype.Format = function (formatStr) {
     var str = formatStr;
     str = str.replace(/yyyy|YYYY/, this.getFullYear());
@@ -14,15 +13,15 @@ Date.prototype.Format = function (formatStr) {
 };
 function inin_s_f() {
     var date = new Date();
-    $$('#sj_s').html(date.Format('hh'));
-    $$('#sj_f').html(date.Format('mm'));
+    $('#sj_s').html(date.Format('hh'));
+    $('#sj_f').html(date.Format('mm'));
     for (var i = 0; i < 24; i++) {
         var li = '<li class="aui-list-item" style="font-size: 1.5em;" onclick=""><div class="aui-list-item-inner">';
         if (i < 10) {
             i = '0' + i;
         }
         li += i + '</div></li>';
-        $$('#s').append(li);
+        $('#s').append(li);
     }
     for (var i = 0; i < 60; i++) {
         var li = '<li class="aui-list-item" style="font-size: 1.5em;" onclick=""><div class="aui-list-item-inner">';
@@ -30,30 +29,30 @@ function inin_s_f() {
             i = '0' + i;
         }
         li += i + '</div></li>';
-        $$('#f').append(li);
+        $('#f').append(li);
     }
-    $$('#s li').click(function () {
-        $$('#sj_s').html($$(this).text());
-        $$('#s li').css({
+    $('#s li').click(function () {
+        $('#sj_s').html($(this).text());
+        $('#s li').css({
             'color': '#757575'
         });
-        $$(this).css({
+        $(this).css({
             'color': '#0894ec'
         })
     })
-    $$('#f li').click(function () {
-        $$('#sj_f').html($$(this).text());
-        $$('#f li').css({
+    $('#f li').click(function () {
+        $('#sj_f').html($(this).text());
+        $('#f li').css({
             'color': '#757575'
         });
-        $$(this).css({
+        $(this).css({
             'color': '#0894ec'
         })
     })
 }
 function szClose() {
-    $$('#szzz').remove();
-    $$('#szkj').remove();
+    $('#szzz').remove();
+    $('#szkj').remove();
 }
 function szShow(dom, callback) {
     var sz = '<div class="aui-mask aui-mask-in" style="z-index: 999999" id="szzz"></div>' +
@@ -79,14 +78,14 @@ function szShow(dom, callback) {
         '    </div>' +
         '</div>';
     var html = document.createElement('div');
-    $$(html).html(sz);
-    $$(dom).append( $$(html).html());
+    $(html).html(sz);
+    $(dom).append( $(html).html());
     inin_s_f();
 
 }
 function szSave(callback) {
-    var s = $$('#sj_s').text();
-    var f = $$('#sj_f').text();
+    var s = $('#sj_s').text();
+    var f = $('#sj_f').text();
     callback(s,f);
     szClose();
 }

@@ -20,7 +20,6 @@ public class WebPageModule extends ExternalActivity {
 	
 	@Override
 	public void onBackPressed() {
-		finish();
 		super.onBackPressed();
 	}
 }
