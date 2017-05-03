@@ -18,7 +18,8 @@
         <span class="aui-icon-left aui-iconfont"></span>
     </div>
     <div class="aui-title" style="width: 70%;text-align: center;">编辑</div>
-    <div class="aui-list-item-label-icon" onclick="huixian(this)" style="width: 100%;height: 100%;padding-top: 8px;padding-left: 10px;" id="hx">
+    <div class="aui-list-item-label-icon" onclick="huixian(this)"
+         style="width: 100%;height: 100%;padding-top: 8px;padding-left: 10px;" id="hx">
         <i class="aui-iconfont aui-icon-display" style="font-size: 1.3em;"></i>
     </div>
 </div>
@@ -31,9 +32,11 @@
                     <img src="../image/img_addpic.png" style="margin: 2px;">
                 </div>
                 <div class="aui-col-xs-2" style="margin-left: 10px;margin-top: 6%;">
-                    <i class="aui-iconfont aui-icon-star" style="font-size: 30px;color: rgba(8, 148, 236, 0.99);" id="shoucang" data-ok="1"></i>
+                    <i class="aui-iconfont aui-icon-star" style="font-size: 30px;color: rgba(8, 148, 236, 0.99);"
+                       id="shoucang" data-ok="1"></i>
                     <br>
-                    <i class="aui-iconfont aui-icon-date" style="font-size: 30px;color: rgba(8, 148, 236, 0.99);" id="tixing" data-ok="1"></i>
+                    <i class="aui-iconfont aui-icon-date" style="font-size: 30px;color: rgba(8, 148, 236, 0.99);"
+                       id="tixing" data-ok="1"></i>
                 </div>
             </div>
         </li>
@@ -399,7 +402,7 @@
         var pageParam = api.pageParam;
         console.log('....................................pageParam:' + JSON.stringify(pageParam));
         if (pageParam.type == 'info') {
-		$('#hx').find('i').removeClass('aui-icon-display');
+            $('#hx').find('i').removeClass('aui-icon-display');
             $('#hx').find('i').addClass('aui-icon-hide');
             $('input[type!=radio],textarea').attr('Disabled', true).css({
                 'border': 'solid 1px rgba(163, 174, 182, 0.388235)'
@@ -426,9 +429,9 @@
                                             $('input[value=男]').parent().hide();
                                         }
                                         $('#sheng_ri').val(user.birthday);//生日
-										if(user.birthday){
-										   $('#sheng_ri').change();
-										}
+                                        if (user.birthday) {
+                                            $('#sheng_ri').change();
+                                        }
                                         $('#jg').val(user.address);//籍贯
                                         $('#tel').val(user.phone);//电话
                                         $('#qq').val(user.qq);//qq
@@ -585,7 +588,7 @@
                                             console.log(s);
                                             var sql = 'update contacts set ' + s + ' where id=' + $('#uid').val();
                                             console.log(sql);
-											 ApiUtil.log({tag: '修改记录', message: sql});
+                                            ApiUtil.log({tag: '修改记录', message: sql});
                                             insertDB(sql, function (res, ret) {
                                                 console.log(JSON.stringify(ret));
                                                 if (res) {

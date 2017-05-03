@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <title>历史</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
     <link rel="stylesheet" href="../css/aui.css">
@@ -82,10 +83,10 @@
         }, function (ret, err) {
             console.log(JSON.stringify(ret));
             console.log(JSON.stringify(err));
-           init();
-           setTimeout(function () {
-               api.refreshHeaderLoadDone();
-           },2000);
+            init();
+            setTimeout(function () {
+                api.refreshHeaderLoadDone();
+            }, 2000);
         });
     };
     function openDB(callback) {
@@ -110,8 +111,8 @@
             url: 'new.html',
             pageParam: {
                 name: 'test',
-                type:'info',
-                id:$(obj).attr('data-id')
+                type: 'info',
+                id: $(obj).attr('data-id')
             }
         });
     }
@@ -136,7 +137,7 @@
                                 for (var i = 0; i < res.data.length; i++) {
                                     var user = res.data[i];
                                     li =
-                                        '<li class="aui-list-item" data-id="'+user.id+'" onclick="info(this)">' +
+                                        '<li class="aui-list-item" data-id="' + user.id + '" onclick="info(this)">' +
                                         '    <div class="aui-row">' +
                                         '        <div class="k-row">' +
                                         '            <i class="aui-iconfont aui-icon-my"></i>' +
