@@ -399,8 +399,8 @@
         var pageParam = api.pageParam;
         console.log('....................................pageParam:' + JSON.stringify(pageParam));
         if (pageParam.type == 'info') {
-            $('input[type=radio]:checked').hide();
-            $('input[type=radio]').not(':checked').parent().hide();
+		$('#hx').find('i').removeClass('aui-icon-display');
+            $('#hx').find('i').addClass('aui-icon-hide');
             $('input[type!=radio],textarea').attr('Disabled', true).css({
                 'border': 'solid 1px rgba(163, 174, 182, 0.388235)'
             });
@@ -478,8 +478,7 @@
      * 编辑与查看
      */
     function huixian(obj) {
-        if ($('input[type=radio]:checked').is(':hidden')) {
-            $('input[type=radio]').show();
+        if ($(obj).find('i').hasClass('aui-icon-hide')) {
             $('input[type=radio]').not(':checked').parent().show();
             $('input[type!=radio],textarea').css({
                 'border': 'solid 1px rgba(8, 148, 236, 0.39)'
@@ -487,7 +486,6 @@
             $(obj).find('i').removeClass('aui-icon-hide');
             $(obj).find('i').addClass('aui-icon-display');
         } else {
-            $('input[type=radio]:checked').hide();
             $('input[type=radio]').not(':checked').parent().hide();
             $('input[type!=radio],textarea').attr('Disabled', true).css({
                 'border': 'solid 1px rgba(163, 174, 182, 0.388235)'

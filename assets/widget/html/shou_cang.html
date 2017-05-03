@@ -52,7 +52,7 @@
             init();
             setTimeout(function () {
                 api.refreshHeaderLoadDone();
-            },2000);
+            },200);
         });
         init();
     };
@@ -91,7 +91,7 @@
     }
     function init() {
         $('#content').html('');
-        var sql = 'select name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts where isCollect = "1"';
+        var sql = 'select id,name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts where isCollect = "1"';
         openDB(function (ret) {
             setTimeout(function () {
                 if (ret) {
@@ -110,7 +110,7 @@
                                 for (var i = 0; i < res.data.length; i++) {
                                     var user = res.data[i];
                                     li =
-                                        '<li class="aui-list-item" style="margin-bottom: 25px;">' +
+                                        '<li class="aui-list-item"  data-id="'+user.id+'" onclick="info(this)">' +
                                         '    <div class="aui-row">' +
                                         '        <div class="k-row">' +
                                         '            <i class="aui-iconfont aui-icon-my"></i>'+
@@ -129,9 +129,6 @@
                                         '        <div class="k-row">' +
                                         '            <div>' + user.subAddress + '</div>' +
                                         '        </div>' +
-                                        '        <div class="k-row">' +
-                                        '            <div>' + user.subContent + '</div>' +
-                                        '        </div>' +
                                         '    </div>' +
                                         '</li>';
                                     $('#content').append(li);
@@ -142,7 +139,19 @@
                         }
                     })
                 }
-            }, 1000);
+            }, 100);
+        });
+    }
+	function info(obj) {
+        api.openWin({
+            name: 'new',
+            bgColor: "#ffffff",
+            url: 'new.html',
+            pageParam: {
+                name: 'test',
+                type:'info',
+                id:$(obj).attr('data-id')
+            }
         });
     }
 </script>
