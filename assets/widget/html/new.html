@@ -426,7 +426,9 @@
                                             $('input[value=男]').parent().hide();
                                         }
                                         $('#sheng_ri').val(user.birthday);//生日
-                                        $('#sheng_ri').change();
+										if(user.birthday){
+										   $('#sheng_ri').change();
+										}
                                         $('#jg').val(user.address);//籍贯
                                         $('#tel').val(user.phone);//电话
                                         $('#qq').val(user.qq);//qq
@@ -530,7 +532,7 @@
             if (ret) {
                 setTimeout(function () {
                     if (db.isOpen) {
-                        var sql = 'SELECT * FROM contacts where 1=1 and name = "' + user.name + '" and phone = "' + user.phone + '"';
+                        var sql = 'SELECT * FROM contacts where name = "' + user.name + '" or phone = "' + user.phone + '"';
                         ApiUtil.log({tag: '根据名字和手机号查询', message: sql});
                         console.log('sql:' + sql);
                         selectDB(sql, function (res, ret) {
@@ -565,7 +567,7 @@
                                                         isHide: "true"
                                                     });
                                                     goBack();
-                                                }, 100);
+                                                }, 500);
                                             }, 200);
                                         }
                                         console.log(JSON.stringify(ret));
@@ -585,6 +587,7 @@
                                             console.log(s);
                                             var sql = 'update contacts set ' + s + ' where id=' + $('#uid').val();
                                             console.log(sql);
+											 ApiUtil.log({tag: '修改记录', message: sql});
                                             insertDB(sql, function (res, ret) {
                                                 console.log(JSON.stringify(ret));
                                                 if (res) {
@@ -599,7 +602,7 @@
                                                                 isHide: "true"
                                                             });
                                                             goBack();
-                                                        }, 100);
+                                                        }, 500);
                                                     }, 200);
                                                 } else {
                                                     setTimeout(function () {

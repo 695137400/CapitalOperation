@@ -11,13 +11,18 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int icon=0x7f020000;
-        public static final int uz_copyright=0x7f020001;
-        public static final int uz_icon=0x7f020002;
-        public static final int uz_pull_down_refresh_arrow=0x7f020003;
-        public static final int uz_splash_bg=0x7f020004;
-        public static final int uz_thumb_hor=0x7f020005;
-        public static final int uz_thumb_ver=0x7f020006;
+        public static final int fail=0x7f020000;
+        public static final int icon=0x7f020001;
+        public static final int lind=0x7f020002;
+        public static final int loading=0x7f020003;
+        public static final int loading_more=0x7f020004;
+        public static final int success=0x7f020005;
+        public static final int uz_copyright=0x7f020006;
+        public static final int uz_icon=0x7f020007;
+        public static final int uz_pull_down_refresh_arrow=0x7f020008;
+        public static final int uz_splash_bg=0x7f020009;
+        public static final int uz_thumb_hor=0x7f02000a;
+        public static final int uz_thumb_ver=0x7f02000b;
     }
     public static final class string {
         public static final int app_name=0x7f030022;
@@ -78,5 +83,6 @@ public final class R {
     public static final class style {
         public static final int ActionSheet=0x7f040001;
         public static final int AppTheme=0x7f040000;
+        public static final int NoBackGroundDialog=0x7f040002;
     }
 }
