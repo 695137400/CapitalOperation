@@ -26,7 +26,8 @@ function newMean() {
         bgColor: "#ffffff",
         url: 'new.html',
         pageParam: {
-            name: 'test'
+            name: 'test',
+            type:'edit'
         }
     });
 }

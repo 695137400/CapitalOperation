@@ -54,6 +54,9 @@ public class ApicloudFileUtil extends UZModule {
             }
             if (!new File(path + newDirName).exists()) {
                 new File(path + newDirName).createNewFile();
+            }else{
+                System.out.println("文件已存在");
+                return;
             }
             OutputStream os = new FileOutputStream(new File(path + newDirName));
             //文件拷贝

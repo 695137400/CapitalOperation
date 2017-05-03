@@ -1,6 +1,13 @@
-<link rel="stylesheet" type="text/css" href="../css/api.css"/>
-<link rel="stylesheet" href="../css/aui.css">
-<script src="../script/jquery.js"></script>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>历史</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" href="../css/aui.css">
+    <script src="../script/jquery.js"></script>
+</head>
 <style>
     .aui-row {
         width: 95%;
@@ -46,40 +53,140 @@
         </div>
     </div>
 </div>
-<div style="overflow-x: scroll;background-color: darkblue;position: relative;" id="zyzt">
-    <ul class="aui-list aui-list-in" style="margin-top: 185px;position: static;background-color: cornflowerblue">
-        <li class="aui-list-item" style="margin-bottom: 25px;">
-            <div class="aui-row">
-                <div class="k-row">
-                    <i class="aui-iconfont aui-icon-my"></i>
-                    <div>李志超</div>
-                </div>
-                <div class="k-row">
-                    <div>15890180607</div>
-                </div>
-                <div class="k-row">
-                    <div>2012-12-12 20:30 周五</div>
-                </div>
-                <div class="k-row">
-                    <div>参加晨会</div>
-                </div>
-                <div class="k-row">
-                    <div>东善桥东善桥东善桥东善桥东善桥</div>
-                </div>
-                <div class="k-row">
-                    <div>带上纸笔，书，开车</div>
-                </div>
-            </div>
-        </li>
+<div style="overflow-x: scroll;position: relative;" id="zyzt">
+    <ul class="aui-list aui-list-in" style="margin-top: 140px;position: static;" id="content">
+
     </ul>
 </div>
 <script type="text/javascript" src="../script/api.js"></script>
 <script>
+    var db = null;
     apiready = function () {
         api.addEventListener({
             name: 'keyback'
         }, function (ret, err) {
             return false;
+        });
+        window.ApiUtil = api.require('ApiUtil');
+        db = api.require('db');
+        console.log('init');
+        init();
+        api.setRefreshHeaderInfo({
+            visible: true,
+            //loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            console.log(JSON.stringify(ret));
+            console.log(JSON.stringify(err));
+           init();
+           setTimeout(function () {
+               api.refreshHeaderLoadDone();
+           },2000);
+        });
+    };
+    function openDB(callback) {
+        db.openDatabase({
+            name: 'contact'
+        }, function (ret, err) {
+            if (ret.status) {
+                db.isOpen = true;
+                ApiUtil.log({tag: 'openDatabase', message: ret});
+                callback(true);
+            } else {
+                ApiUtil.log({tag: 'openDatabase', message: err});
+                db.isOpen = false;
+                callback(false);
+            }
+        });
+    }
+    function info() {
+        api.openWin({
+            name: 'new',
+            bgColor: "#ffffff",
+            url: 'new.html',
+            pageParam: {
+                name: 'test',
+                type:'info',
+                id:$('#uid').attr('data-id')
+            }
+        });
+    }
+    function init() {
+        $('#content').html('');
+        var sql = 'select id,name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts';
+        openDB(function (ret) {
+            setTimeout(function () {
+                if (ret) {
+                    selectDB(sql, function (ret, res) {
+                        console.log(JSON.stringify(res));
+                        if (ret && res.status) {
+                            var li =
+                                '<li class="aui-list-item" style="margin-bottom: 25px;">' +
+                                '    <div class="aui-row">' +
+                                '        <div class="k-row" style="text-align: center;line-height: 4em;">' +
+                                '            暂无数据，快去添加吧' +
+                                '        </div>' +
+                                '    </div>' +
+                                '</li>';
+                            if (res.data.length > 0) {
+                                for (var i = 0; i < res.data.length; i++) {
+                                    var user = res.data[i];
+                                    li =
+                                        '<li class="aui-list-item" style="margin-bottom: 25px;" id="uid" data-id="'+user.id+'" onclick="info()">' +
+                                        '    <div class="aui-row">' +
+                                        '        <div class="k-row">' +
+                                        '            <i class="aui-iconfont aui-icon-my"></i>' +
+                                        '            <div>' + user.name + '</div>' +
+                                        '        </div>' +
+                                        '        <div class="k-row">' +
+                                        '            <div>' + user.phone + '</div>' +
+                                        '        </div>' +
+                                        '        <div class="k-row">' +
+                                        '            <div>' + user.subDate + '&nbsp;&nbsp;&nbsp;' + user.subTime + '&nbsp;&nbsp;&nbsp;星期' + get_xing_qi(user.subDate) + '</div>' +
+                                        '        </div>' +
+                                        '        <div class="k-row">' +
+                                        '            <div>' + user.subEvent + '</div>' +
+                                        '        </div>' +
+                                        '        <div class="k-row">' +
+                                        '            <div>' + user.subAddress + '</div>' +
+                                        '        </div>' +
+                                        '        <div class="k-row">' +
+                                        '            <div>' + user.subContent + '</div>' +
+                                        '        </div>' +
+                                        '    </div>' +
+                                        '</li>';
+                                    $('#content').append(li);
+                                }
+                            } else {
+                                $('#content').append(li);
+                            }
+                        }
+                    })
+                }
+            }, 1000);
+        });
+    }
+
+    function get_xing_qi(obj) {
+        var w = "日一二三四五六".charAt(new Date(obj).getDay());
+        return w;
+    }
+    function selectDB(sql, callback) {
+        db.selectSql({
+            name: 'contact',
+            sql: sql
+        }, function (ret, err) {
+            if (ret.status) {
+                //alert(JSON.stringify(ret));
+                callback(true, ret);
+            } else {
+                //alert(JSON.stringify(err));
+                callback(false, err);
+            }
         });
     }
     function star() {
@@ -119,4 +226,5 @@
         });
         api.closeSlidPane();
     }
+
 </script>
