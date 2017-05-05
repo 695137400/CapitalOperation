@@ -307,11 +307,11 @@
         <i class="aui-iconfont aui-icon-correct"></i>
         <p style="margin: 0;">保存</p>
     </div>
-    <div class="aui-bar-tab-item" style="height: 1rem;" onclick="shoucang()">
+    <div class="aui-bar-tab-item" style="height: 1rem;color:rgba(8, 148, 236, 0.99)" onclick="shoucang(this)" id="sc">
         <i class="aui-iconfont aui-icon-star"></i>
         <p style="margin: 0;">收藏</p>
     </div>
-    <div class="aui-bar-tab-item" style="height: 1rem;" onclick="tixing()">
+    <div class="aui-bar-tab-item" style="height: 1rem;color:rgba(8, 148, 236, 0.99)" onclick="tixing(this)" id="tx">
         <i class="aui-iconfont aui-icon-date"></i>
         <p style="margin: 0;">提醒</p>
     </div>
@@ -335,21 +335,33 @@
         str = str.replace(/ss|SS/, this.getSeconds() > 9 ? this.getSeconds().toString() : '0' + this.getSeconds());
         return str;
     };
-    function shoucang() {
+    function shoucang(obj) {
         if ($('#shoucang').hasClass('aui-icon-star')) {
             $('#shoucang').removeClass('aui-icon-star');
             $('#shoucang').attr('data-ok', 0);
+            $(obj).css({
+                'color': '#757575'
+            });
         } else {
             $('#shoucang').addClass('aui-icon-star');
             $('#shoucang').attr('data-ok', 1);
+            $(obj).css({
+                'color': 'rgba(8, 148, 236, 0.99)'
+            });
         }
     }
-    function tixing() {
+    function tixing(obj) {
         if ($('#tixing').hasClass('aui-icon-date')) {
             $('#tixing').removeClass('aui-icon-date');
             $('#tixing').attr('data-ok', 0);
+            $(obj).css({
+                'color': '#757575'
+            });
         } else {
             $('#tixing').addClass('aui-icon-date');
+            $(obj).css({
+                'color': 'rgba(8, 148, 236, 0.99)'
+            });
             $('#tixing').attr('data-ok', 1);
         }
     }
@@ -421,12 +433,12 @@
                                         $('#xing_ming').val(user.name);//姓名
                                         if (user.sex == '男') {
                                             console.log("男");
-                                            $('input[value=男]').click().parent().show();
-                                            $('input[value=女]').parent().hide();
+                                            $('input[value=男]').click();
+                                            $('input[value=女]').attr('Disabled', true);
                                         } else {
                                             console.log("女");
-                                            $('input[value=女]').click().parent().show();
-                                            $('input[value=男]').parent().hide();
+                                            $('input[value=男]').attr('Disabled', true);
+                                            $('input[value=女]').click();
                                         }
                                         $('#sheng_ri').val(user.birthday);//生日
                                         if (user.birthday) {
@@ -450,16 +462,28 @@
                                         if (user.isCollect == '1') {
                                             $('#shoucang').addClass('aui-icon-star');
                                             $('#shoucang').attr('data-ok', 1);
+                                            $('#sc').css({
+                                                'color': 'rgba(8, 148, 236, 0.99)'
+                                            });
                                         } else {
                                             $('#shoucang').removeClass('aui-icon-star');
-                                            $('#shoucang').attr('data-ok', 0);
+                                            $('#shoucang').attr('data-ok', 1);
+                                            $('#sc').css({
+                                                'color': '#757575'
+                                            });
                                         }
                                         if (user.isRemind == '1') {
                                             $('#tixing').addClass('aui-icon-date');
+                                            $('#tx').css({
+                                                'color': 'rgba(8, 148, 236, 0.99)'
+                                            });
                                             $('#tixing').attr('data-ok', 1);
                                         } else {
                                             $('#tixing').removeClass('aui-icon-date');
                                             $('#tixing').attr('data-ok', 0);
+                                            $('#tx').css({
+                                                'color': '#757575'
+                                            });
                                         }
                                     }
                                 }
@@ -482,17 +506,15 @@
      */
     function huixian(obj) {
         if ($(obj).find('i').hasClass('aui-icon-hide')) {
-            $('input[type=radio]').not(':checked').parent().show();
-            $('input[type!=radio],textarea').css({
+            $('input,textarea').css({
                 'border': 'solid 1px rgba(8, 148, 236, 0.39)'
             }).attr('Disabled', false);
             $(obj).find('i').removeClass('aui-icon-hide');
             $(obj).find('i').addClass('aui-icon-display');
         } else {
-            $('input[type=radio]').not(':checked').parent().hide();
-            $('input[type!=radio],textarea').attr('Disabled', true).css({
+            $('input:radio,textarea,input').not(":checked").css({
                 'border': 'solid 1px rgba(163, 174, 182, 0.388235)'
-            });
+            }).attr('Disabled', true);
             $(obj).find('i').removeClass('aui-icon-display');
             $(obj).find('i').addClass('aui-icon-hide');
         }

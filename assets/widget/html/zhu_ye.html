@@ -26,11 +26,12 @@
 <div class="aui-grid" style="position: fixed;z-index: 9;">
     <div class="aui-row" style="width: 100%;">
         <div class="aui-col-xs-4" onclick="cert()">
-            <div class="aui-badge">88</div>
+            <div class="aui-badge" style="display: none"></div>
             <i class="aui-iconfont aui-icon-mobile"></i>
             <div class="aui-grid-label">联系人</div>
         </div>
         <div class="aui-col-xs-4" onclick="star()">
+            <div class="aui-badge" id="scount" style="display: none"></div>
             <i class="aui-iconfont aui-icon-star"></i>
             <div class="aui-grid-label">收藏</div>
         </div>
@@ -39,16 +40,16 @@
             <div class="aui-grid-label">预约</div>
         </div>
         <div class="aui-col-xs-4" onclick="date()">
+            <div class="aui-badge" id="txcount" style="display: none"></div>
             <i class="aui-iconfont aui-icon-date"></i>
             <div class="aui-grid-label">提醒</div>
         </div>
         <div class="aui-col-xs-4" onclick="flag()">
-            <div class="aui-badge"></div>
+            <div class="aui-badge" id="lscount" style="display: none"></div>
             <i class="aui-iconfont aui-icon-flag"></i>
             <div class="aui-grid-label">历史</div>
         </div>
         <div class="aui-col-xs-4" onclick="question()">
-            <div class="aui-dot"></div>
             <i class="aui-iconfont aui-icon-question"></i>
             <div class="aui-grid-label">帮助</div>
         </div>
@@ -118,10 +119,13 @@
     }
     function init() {
         $('#content').html('');
-        var sql = 'select id,name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts';
+        $('#scount').html('').hide();
+        $('#txcount').html('').hide();
+        $('#lscount').html('').hide();
         openDB(function (ret) {
             setTimeout(function () {
                 if (ret) {
+                    var sql = 'select id,name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts';
                     selectDB(sql, function (ret, res) {
                         console.log(JSON.stringify(res));
                         if (ret && res.status) {
@@ -167,6 +171,54 @@
                 }
             }, 200);
         });
+        openDB(function (ret) {
+            setTimeout(function () {
+                if (ret) {
+                    var sql = 'select count(*) as count from contacts where isCollect ="1"';
+                    selectDB(sql, function (ret, res) {
+                        if (ret && res.status) {
+                            console.log(JSON.stringify(res));
+                            var count = parseInt(res.data[0].count);
+                            if (count > 0){
+                                $('#scount').html(count).show();
+                            }
+                        }
+                    })
+                }
+            }, 200)
+        })
+        openDB(function (ret) {
+            setTimeout(function () {
+                if (ret) {
+                    var sql = 'select count(*) as count from contacts where isRemind ="1"';
+                    selectDB(sql, function (ret, res) {
+                        if (ret && res.status) {
+                            console.log(JSON.stringify(res));
+                            var count = parseInt(res.data[0].count);
+                            if (count > 0){
+                                $('#txcount').html(count).show();
+                            }
+                        }
+                    })
+                }
+            }, 200)
+        })
+        openDB(function (ret) {
+            setTimeout(function () {
+                if (ret) {
+                    var sql = 'select count(*) as count from contacts';
+                    selectDB(sql, function (ret, res) {
+                        if (ret && res.status) {
+                            console.log(JSON.stringify(res));
+                            var count = parseInt(res.data[0].count);
+                            if (count > 0){
+                                $('#lscount').html(count).show();
+                            }
+                        }
+                    })
+                }
+            }, 200)
+        })
     }
 
     function get_xing_qi(obj) {

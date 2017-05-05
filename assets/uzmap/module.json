@@ -9,10 +9,6 @@
       "class": "com.uzmap.pkg.uzmodules.uzdb.UzDatebaseSQL"
     },
     {
-      "name": "fileBrowser",
-      "class": "com.uzmap.pkg.uzmodules.uzfileBrowser.uzfileBrowser"
-    },
-    {
       "name": "fs",
       "class": "com.uzmap.pkg.uzmodules.fs.UzFsUtils"
     },
