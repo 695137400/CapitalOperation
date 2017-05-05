@@ -71,8 +71,8 @@
         });
         window.ApiUtil = api.require('ApiUtil');
         db = api.require('db');
-        console.log('init');
-        init();
+        var pageParam = api.pageParam;
+        console.log('pageParam：'+JSON.stringify(pageParam) );
         api.setRefreshHeaderInfo({
             visible: true,
             //loadingImg: 'widget://image/refresh.png',
@@ -84,11 +84,12 @@
         }, function (ret, err) {
             console.log(JSON.stringify(ret));
             console.log(JSON.stringify(err));
-            init();
+            init(pageParam);
             setTimeout(function () {
                 api.refreshHeaderLoadDone();
             }, 2000);
         });
+        init(pageParam);
     };
     function openDB(callback) {
         db.openDatabase({
@@ -117,15 +118,51 @@
             }
         });
     }
-    function init() {
+    function init(pageParam) {
         $('#content').html('');
         $('#scount').html('').hide();
         $('#txcount').html('').hide();
         $('#lscount').html('').hide();
+        var user = {};
+        user.name = pageParam.selectParam || null;//姓名
+        user.sex = pageParam.selectParam || null;//性别
+        user.birthday = pageParam.selectParam || null;//生日
+        user.address = pageParam.selectParam || null;//籍贯
+        user.phone = pageParam.selectParam || null;//电话
+        user.qq = pageParam.selectParam || null;//qq
+        user.wechar = pageParam.selectParam || null;//微信
+        user.job = pageParam.selectParam || null;//历史工作
+        user.shift = pageParam.selectParam || null;//工作班次
+        user.subDate = pageParam.selectParam || null;//预约日期
+        user.subTime = pageParam.selectParam || null;//预约时间
+        user.subAddress = pageParam.selectParam || null;//预约地点
+        user.subEvent = pageParam.selectParam || null;//预约标题
         openDB(function (ret) {
             setTimeout(function () {
                 if (ret) {
-                    var sql = 'select id,name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts';
+                    var sql = 'select id,name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts where 1=1 ';
+                    if (pageParam.selectParam){
+                        pageParam.selectParam = '';
+                        api.execScript({
+                            name: 'slide',
+                            script: 'menus.clear()'
+                        });
+                        sql += 'and( name like "%'+user.name+'%" ';
+                        sql += ' or sex="'+user.sex+'"';
+                        sql += ' or birthday like "%'+user.birthday+'%" ';
+                        sql += ' or address like "%'+user.address+'%" ';
+                        sql += ' or phone="'+user.name+'"';
+                        sql += ' or qq="'+user.qq+'"';
+                        sql += ' or wechar="'+user.wechar+'"';
+                        sql += ' or job like "%'+user.job+'%" ';
+                        sql += ' or shift like "%'+user.shift+'%" ';
+                        sql += ' or subDate like "%'+user.subDate+'%" ';
+                        sql += ' or subTime like "%'+user.subTime+'%" ';
+                        sql += ' or subAddress like "%'+user.subAddress+'%" ';
+                        sql += ' or subEvent like "%'+user.subEvent+'%") ';
+                    }
+                    console.log('主页条件查询：'+sql);
+                    ApiUtil.log({tag: '主页条件查询', message: sql});
                     selectDB(sql, function (ret, res) {
                         console.log(JSON.stringify(res));
                         if (ret && res.status) {
@@ -175,11 +212,12 @@
             setTimeout(function () {
                 if (ret) {
                     var sql = 'select count(*) as count from contacts where isCollect ="1"';
+                    ApiUtil.log({tag: '主页查询收藏统计', message: sql});
                     selectDB(sql, function (ret, res) {
                         if (ret && res.status) {
                             console.log(JSON.stringify(res));
                             var count = parseInt(res.data[0].count);
-                            if (count > 0){
+                            if (count > 0) {
                                 $('#scount').html(count).show();
                             }
                         }
@@ -191,11 +229,12 @@
             setTimeout(function () {
                 if (ret) {
                     var sql = 'select count(*) as count from contacts where isRemind ="1"';
+                    ApiUtil.log({tag: '主页查询提醒统计', message: sql});
                     selectDB(sql, function (ret, res) {
                         if (ret && res.status) {
                             console.log(JSON.stringify(res));
                             var count = parseInt(res.data[0].count);
-                            if (count > 0){
+                            if (count > 0) {
                                 $('#txcount').html(count).show();
                             }
                         }
@@ -207,11 +246,12 @@
             setTimeout(function () {
                 if (ret) {
                     var sql = 'select count(*) as count from contacts';
+                    ApiUtil.log({tag: '主页查询历史统计', message: sql});
                     selectDB(sql, function (ret, res) {
                         if (ret && res.status) {
                             console.log(JSON.stringify(res));
                             var count = parseInt(res.data[0].count);
-                            if (count > 0){
+                            if (count > 0) {
                                 $('#lscount').html(count).show();
                             }
                         }

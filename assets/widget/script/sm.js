@@ -2438,6 +2438,7 @@ Device/OS Detection
                 if (p.inline) {
                     p.container = $(p.pickerHTML);
                     p.container.addClass('picker-modal-inline');
+                    console.log(p.params.container);
                     $(p.params.container).append(p.container);
                 }
                 else {

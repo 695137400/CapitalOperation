@@ -25,8 +25,8 @@
     </a>
     <div class="aui-searchbar-input aui-border-radius">
         <!--搜索-->
-        <i class="aui-iconfont aui-icon-search" style="padding-top: 2px;"></i>
-        <input type="search" placeholder="请输入搜索内容" id="search-input" style="width: 95%;">
+        <i class="aui-iconfont aui-icon-search" style="padding-top: 10px;padding-bottom: 10px;margin-left: -10px;padding-left: 10px;" onclick="menus.search($('#search-input').attr('data-index'))"></i>
+        <input type="search" placeholder="请输入搜索内容" id="search-input" style="width: 95%;" onkeyup="inputSearch(event)" data-index="0">
     </div>
     <div class="aui-searchbar-cancel" style="height: 100%;width: 30px;padding-top: 8px;" id="plus" onclick="newMean()">
         <!--添加-->
@@ -51,5 +51,13 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script src="../script/jquery.js"></script>
 <script src="../script/slide.js"></script>
+<script type="text/javascript">
+    function inputSearch(event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        if (e.keyCode == 13){
+            menus.search($('#search-input').attr('data-index'))
+        }
+    }
+</script>
 </body>
 </html>

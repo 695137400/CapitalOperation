@@ -40,6 +40,7 @@
             return false;
         });
         window.ApiUtil = api.require('ApiUtil');
+        var pageParam = api.pageParam;
         db = api.require('db');
         api.setRefreshHeaderInfo({
             visible: true,
@@ -52,12 +53,12 @@
         }, function (ret, err) {
             console.log(JSON.stringify(ret));
             console.log(JSON.stringify(err));
-            init();
+            init(pageParam);
             setTimeout(function () {
                 api.refreshHeaderLoadDone();
             }, 200);
         });
-        init();
+        init(pageParam);
     };
     function get_xing_qi(obj) {
         var w = "日一二三四五六".charAt(new Date(obj).getDay());
@@ -92,9 +93,45 @@
             }
         });
     }
-    function init() {
+    function init(pageParam) {
         $('#content').html('');
+        var user = {};
+        user.name = pageParam.selectParam || null;//姓名
+        user.sex = pageParam.selectParam || null;//性别
+        user.birthday = pageParam.selectParam || null;//生日
+        user.address = pageParam.selectParam || null;//籍贯
+        user.phone = pageParam.selectParam || null;//电话
+        user.qq = pageParam.selectParam || null;//qq
+        user.wechar = pageParam.selectParam || null;//微信
+        user.job = pageParam.selectParam || null;//历史工作
+        user.shift = pageParam.selectParam || null;//工作班次
+        user.subDate = pageParam.selectParam || null;//预约日期
+        user.subTime = pageParam.selectParam || null;//预约时间
+        user.subAddress = pageParam.selectParam || null;//预约地点
+        user.subEvent = pageParam.selectParam || null;//预约标题
         var sql = 'select id,name,sex,birthday,address,phone,qq,wechar,relation,love,job,shift,speciality,level,subDate,subTime,subAddress,subEvent,subContent,isCollect,isRemind from contacts where isCollect = "1"';
+        if (pageParam.selectParam){
+            pageParam.selectParam = '';
+            api.execScript({
+                name: 'slide',
+                script: 'menus.clear()'
+            });
+            sql += ' and( name like "%'+user.name+'%" ';
+            sql += ' or sex="'+user.sex+'"';
+            sql += ' or birthday like "%'+user.birthday+'%" ';
+            sql += ' or address like "%'+user.address+'%" ';
+            sql += ' or phone="'+user.name+'"';
+            sql += ' or qq="'+user.qq+'"';
+            sql += ' or wechar="'+user.wechar+'"';
+            sql += ' or job like "%'+user.job+'%" ';
+            sql += ' or shift like "%'+user.shift+'%" ';
+            sql += ' or subDate like "%'+user.subDate+'%" ';
+            sql += ' or subTime like "%'+user.subTime+'%" ';
+            sql += ' or subAddress like "%'+user.subAddress+'%" ';
+            sql += ' or subEvent like "%'+user.subEvent+'%") ';
+        }
+        console.log('收藏条件查询：'+sql);
+        ApiUtil.log({tag: '收藏条件查询', message: sql});
         openDB(function (ret) {
             setTimeout(function () {
                 if (ret) {

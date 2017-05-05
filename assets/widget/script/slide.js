@@ -78,11 +78,17 @@ var menus = {
             frames: [
                 {
                     name: 'home',//0
-                    url: 'zhu_ye.html'
+                    url: 'zhu_ye.html',
+                    pageParam:{
+                        selectParam:$('#search-input').val()
+                    }
                 },
                 {
                     name: 'star',//1
-                    url: 'shou_cang.html'
+                    url: 'shou_cang.html',
+                    pageParam:{
+                        selectParam:$('#search-input').val()
+                    }
                 },
                 {
                     name: 'my',//2
@@ -90,15 +96,24 @@ var menus = {
                 },
                 {
                     name: 'calendar',//3
-                    url: 'yu_yue.html'
+                    url: 'yu_yue.html',
+                    pageParam:{
+                        selectParam:$('#search-input').val()
+                    }
                 },
                 {
                     name: 'date',//4
-                    url: 'ti_xing.html'
+                    url: 'ti_xing.html',
+                    pageParam:{
+                        selectParam:$('#search-input').val()
+                    }
                 },
                 {
                     name: 'flag',//5
-                    url: 'li_shi.html'
+                    url: 'li_shi.html',
+                    pageParam:{
+                        selectParam:$('#search-input').val()
+                    }
                 },
                 {
                     name: 'question',//6
@@ -127,7 +142,48 @@ var menus = {
             index: 0
         });
     },
+    search: function (index) {
+        console.log('index：'+index);
+        if (index == '0'){
+            this.close();
+        }
+        if (index == 1){
+            this.star();
+            api.setFrameGroupIndex({
+                name: 'menus',
+                index: 1
+            });
+        }
+        if (index == '2'){
+            //this.close();
+        }
+        if (index == 3){
+            this.calendar();
+            api.setFrameGroupIndex({
+                name: 'menus',
+                index: 3
+            });
+        }
+        if (index == 4){
+            this.date();
+            api.setFrameGroupIndex({
+                name: 'menus',
+                index: 4
+            });
+        }
+        if (index == 5){
+            this.flag();
+            api.setFrameGroupIndex({
+                name: 'menus',
+                index: 5
+            });
+        }
+    },
+    clear: function () {
+        $('#search-input').val('');
+    },
     star: function () {
+        $('#search-input').attr('data-index',1);
         this.close();
         var tab_home = $('#tab-star');
         $('#tab').children().removeClass('aui-active');
@@ -138,6 +194,7 @@ var menus = {
         });
     },
     my: function () {
+        $('#search-input').attr('data-index',2);
         this.close();
         var tab_home = $('#tab-my');
         $('#tab').children().removeClass('aui-active');
@@ -148,6 +205,7 @@ var menus = {
         });
     },
     calendar: function () {
+        $('#search-input').attr('data-index',3);
         this.close();
         $('#tab').children().removeClass('aui-active');
         api.setFrameGroupIndex({
@@ -156,6 +214,7 @@ var menus = {
         });
     },
     date: function () {
+        $('#search-input').attr('data-index',4);
         this.close();
         $('#tab').children().removeClass('aui-active');
         api.setFrameGroupIndex({
@@ -164,6 +223,7 @@ var menus = {
         });
     },
     flag: function () {
+        $('#search-input').attr('data-index',5);
         this.close();
         $('#tab').children().removeClass('aui-active');
         api.setFrameGroupIndex({
@@ -172,6 +232,7 @@ var menus = {
         });
     },
     question: function () {
+        $('#search-input').attr('data-index',6);
         this.close();
         $('#tab').children().removeClass('aui-active');
         api.setFrameGroupIndex({
@@ -180,6 +241,7 @@ var menus = {
         });
     },
     cert: function () {
+        $('#search-input').attr('data-index',7);
         this.close();
         $('#tab').children().removeClass('aui-active');
         api.setFrameGroupIndex({
